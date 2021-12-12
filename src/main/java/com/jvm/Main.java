@@ -2,6 +2,9 @@ package com.jvm;
 
 import com.jvm.classfile.ClassFile;
 import com.jvm.classpath.Classpath;
+import com.jvm.rtda.Frame;
+import com.jvm.rtda.LocalVars;
+import com.jvm.rtda.OperandStack;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -21,10 +24,16 @@ public class Main {
     public static void startJVM(Cmd cmd) {
         Classpath classpath = new Classpath(cmd.getXjreOption(), cmd.getCpOption());
         byte[] classData = classpath.readClass("CXXXX");
-        System.out.println(Arrays.toString(classData));
+        //System.out.println(Arrays.toString(classData));
+        float c = 3.1415333323232f;
+        System.out.println(c);
+        //ClassFile classFile = ClassFile.Parse(classData);
+        //printClassInfo(classFile);
+        System.out.println(Long.MAX_VALUE);
+        Frame frame = new Frame(100, 100);
+        testLocalVars(frame.localVars);
+        testOperandStack(frame.operandStack);
 
-        ClassFile classFile = ClassFile.Parse(classData);
-        printClassInfo(classFile);
 
 
     }
@@ -47,5 +56,46 @@ public class Main {
             log.info("methodName :{}", cf.methods[i].Name());
         }
     }
+
+
+    public static void testLocalVars(LocalVars vars) {
+        vars.SetInt(0, 100);
+        vars.SetInt(1, -100);
+        vars.SetLong(2, 2997924580111l);
+        vars.SetLong(4, -2997924580l);
+        vars.SetFloat(6, 3.1415333f);
+        vars.SetDouble(7, 2.718d);
+        vars.SetRef(9, null);
+        println(vars.GetInt(0));
+        println(vars.GetInt(1));
+        println(vars.GetLong(2));
+        println(vars.GetLong(4));
+        println(vars.GetFloat(6));
+        println(vars.GetDouble(7));
+        println(vars.GetRef(9));
+    }
+
+    public static void testOperandStack(OperandStack ops) {
+        ops.PushInt(100);
+        ops.PushInt(-100);
+        ops.PushLong(2997924580l);
+        ops.PushLong(-2997924580l);
+        ops.PushFloat(3.1415926f);
+        ops.PushDouble(2.71828182845d);
+        ops.PushRef(null);
+        println(ops.PopRef());
+        println(ops.PopDouble());
+        println(ops.PopFloat());
+        println(ops.PopLong());
+        println(ops.PopLong());
+        println(ops.PopInt());
+        println(ops.PopInt());
+    }
+
+
+    public static void println(Object obj) {
+        System.out.println(obj);
+    }
+
 
 }

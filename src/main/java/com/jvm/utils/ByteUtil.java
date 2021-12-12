@@ -52,6 +52,9 @@ public class ByteUtil
         return getBytes(intBits);
     }
 
+
+
+
     public static byte[] getBytes(double data)
     {
         long intBits = Double.doubleToLongBits(data);
@@ -85,6 +88,7 @@ public class ByteUtil
         return (0xff & bytes[0]) | (0xff00 & (bytes[1] << 8)) | (0xff0000 & (bytes[2] << 16)) | (0xff000000 & (bytes[3] << 24));
     }
 
+
     public static long getLong(byte[] bytes)
     {
         return(0xffL & (long)bytes[0]) | (0xff00L & ((long)bytes[1] << 8)) | (0xff0000L & ((long)bytes[2] << 16)) | (0xff000000L & ((long)bytes[3] << 24))
@@ -99,7 +103,6 @@ public class ByteUtil
     public static double getDouble(byte[] bytes)
     {
         long l = getLong(bytes);
-        System.out.println(l);
         return Double.longBitsToDouble(l);
     }
 
@@ -168,35 +171,4 @@ public class ByteUtil
     }
 
 
-
-    public static void main(String[] args)
-    {
-        short s = 122;
-        int i = 122;
-        long l = 1222222;
-
-        char c = 'a';
-
-        float f = 122.22f;
-        double d = 122.22;
-
-        String string = "我是好孩子";
-        System.out.println(s);
-        System.out.println(i);
-        System.out.println(l);
-        System.out.println(c);
-        System.out.println(f);
-        System.out.println(d);
-        System.out.println(string);
-
-        System.out.println("**************");
-
-        System.out.println(getShort(getBytes(s)));
-        System.out.println(getInt(getBytes(i)));
-        System.out.println(getLong(getBytes(l)));
-        System.out.println(getChar(getBytes(c)));
-        System.out.println(getFloat(getBytes(f)));
-        System.out.println(getDouble(getBytes(d)));
-        System.out.println(getString(getBytes(string)));
-    }
 }
