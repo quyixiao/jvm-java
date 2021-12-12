@@ -47,7 +47,9 @@ public class ClassFile {
     public AttributeInfo[] attributes;
 
 
-    public ClassFile Parse(byte[] classData) {
+
+
+    public static ClassFile Parse(byte[] classData) {
         ClassReader cr = new ClassReader(classData);
         ClassFile cf = new ClassFile();
         cf.read(cr);

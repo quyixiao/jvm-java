@@ -17,9 +17,8 @@ public class ConstantFloatInfo implements ConstantInfo{
     public  Float val;
 
 
-    public ConstantFloatInfo(Float val) {
-        this.val = val;
-    }
+
+
 
     @Override
     public void readInfo(ClassReader reader) {
