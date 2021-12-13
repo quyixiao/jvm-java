@@ -5,8 +5,6 @@ import com.jvm.data.Uint32;
 import com.jvm.data.Uint64;
 import com.jvm.data.Uint8;
 
-import java.util.Arrays;
-
 public class ClassReader {
 
 

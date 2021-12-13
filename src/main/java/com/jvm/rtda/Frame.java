@@ -7,6 +7,8 @@ public class Frame {
     public Frame lower;        //lower字段用来实现链表数据结构
     public LocalVars localVars;     //localVars字段保存 局部变量表指针
     public OperandStack operandStack; //operandStack字段保存操作数栈指针。
+    public Thread thread;
+    public Integer nextPC; // the next instruction after the call
 
     public Frame(Integer maxLocals, Integer maxStack) {
         this.localVars = new LocalVars(maxLocals);
@@ -21,6 +23,20 @@ public class Frame {
     public OperandStack OperandStack() {
 
         return this.operandStack;
+    }
+
+
+    public Thread Thread() {
+        return this.thread;
+    }
+
+    public int NextPC() {
+
+        return this.nextPC;
+    }
+
+    public void SetNextPC(int nextPC) {
+        this.nextPC = nextPC;
     }
 
 
