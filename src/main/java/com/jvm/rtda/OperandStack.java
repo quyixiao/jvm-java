@@ -112,6 +112,17 @@ public class OperandStack {
     }
 
 
+    public void PushSlot(Slot slot) {
+        this.slots[this.size] = slot;
+        this.size++;
+    }
+
+    public Slot PopSlot() {
+        this.size--;
+        return this.slots[this.size];
+    }
+
+
     public void initSlot(int i) {
         if (this.slots[i] == null) {
             this.slots[i] = new Slot();
