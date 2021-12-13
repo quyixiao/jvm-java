@@ -11,7 +11,7 @@ public class WIDE implements Instruction {
     //FetchOperands()方法先从字节码中读取一字节的操作码，然 后创建子指令实例，最后读取子指令的操作数
     @Override
     public void FetchOperands(BytecodeReader reader) {
-        int opcode = reader.ReadUint8().Value();
+       /* int opcode = reader.ReadUint8().Value();
         switch (opcode) {
             case 0x15:
                 inst:= &loads.ILOAD {
@@ -71,7 +71,7 @@ public class WIDE implements Instruction {
             self.modifiedInstruction = inst
             case 0xa9: // ret
                 panic("Unsupported opcode: 0xa9!")
-        }
+        }*/
     }
 
     //wide指令只是增加了索引宽度，并不改变子指令操作，所以其 Execute()方法只要调用子指令的Execute()方法即可

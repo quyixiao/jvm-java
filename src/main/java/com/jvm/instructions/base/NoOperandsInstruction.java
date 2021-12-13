@@ -72,6 +72,13 @@ public abstract class NoOperandsInstruction implements Instruction {
         frame.OperandStack().PushLong(val);
     }
 
+
+
+    public void _fload(Frame frame, int index) {
+        float val = frame.LocalVars().GetFloat(index);
+        frame.OperandStack().PushFloat(val);
+    }
+
 }
 
 

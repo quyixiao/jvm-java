@@ -36,4 +36,10 @@ public abstract class Index8Instruction implements Instruction {
     }
 
 
+    public void _fload(Frame frame, int index) {
+        float val = frame.LocalVars().GetFloat(index);
+        frame.OperandStack().PushFloat(val);
+    }
+
+
 }
