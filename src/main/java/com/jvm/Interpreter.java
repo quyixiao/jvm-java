@@ -36,15 +36,9 @@ public class Interpreter {
             thread.SetPC(pc);
             // decode
             reader.Reset(bytecode, pc);
-            if(pc == 17){
-                System.out.println("----------");
-            }
             int opcode = reader.ReadUint8().Value();
             Instruction inst = Factory.NewInstruction(opcode);
             inst.FetchOperands(reader);
-            if(reader.PC() == 17){
-                System.out.println("异常出现的地方");
-            }
             frame.SetNextPC(reader.PC());
             // execute
             inst.Execute(frame);

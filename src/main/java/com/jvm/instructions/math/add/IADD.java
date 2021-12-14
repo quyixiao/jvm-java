@@ -14,7 +14,6 @@ public class IADD extends NoOperandsInstruction {
         Integer v2 = stack.PopInt();
         Integer v1 = stack.PopInt();
         Integer result = v1 + v2;
-        log.info(" v1 =" + v1 + ", v2 =" + v2 + ",sum = " + result);
         stack.PushInt(result);
     }
 }

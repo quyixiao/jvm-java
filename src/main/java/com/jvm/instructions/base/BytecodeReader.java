@@ -2,6 +2,7 @@ package com.jvm.instructions.base;
 
 import com.jvm.data.Uint16;
 import com.jvm.data.Uint8;
+import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
 
 public class BytecodeReader {
     public byte[] code; // bytecodes
@@ -36,13 +37,13 @@ public class BytecodeReader {
         return this.ReadUint16().Value();
     }
 
-
     //ReadUint16()连续读取两字节
     public Uint16 ReadUint16() {
         int i = ((this.code[this.pc] & 0xFF) << 8) | (this.code[this.pc + 1] & 0xFF);
         this.pc++;
         this.pc++;
-        return new Uint16(i);
+        short s = (short)i;
+        return new Uint16(s);
     }
 
     //ReadInt32()方法连续读取4字节
