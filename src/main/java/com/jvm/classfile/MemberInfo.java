@@ -42,11 +42,6 @@ public class MemberInfo {
     }
 
 
-
-
-
-
-
     public Uint16 AccessFlags()  {
         return this.accessFlags;
     }
@@ -60,5 +55,16 @@ public class MemberInfo {
     public String  Descriptor()  {
         return this.cp.getUtf8(this.descriptorIndex);
     }
+
+
+    public CodeAttribute CodeAttribute() {
+        for(AttributeInfo attributeInfo : this.attributes){
+            if(attributeInfo instanceof CodeAttribute){
+                return( CodeAttribute) attributeInfo;
+            }
+        }
+        return null;
+    }
+
 
 }

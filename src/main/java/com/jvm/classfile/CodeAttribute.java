@@ -67,4 +67,22 @@ public class CodeAttribute implements ConstantInfo, AttributeInfo {
     }
 
 
+    public int MaxStack() {
+        return this.maxStack.Value();
+    }
+
+
+    public int MaxLocals() {
+        return this.maxLocals.Value();
+    }
+
+    public byte[] Code() {
+        return this.code;
+    }
+
+
+    public ExceptionTableEntry[] ExceptionTable() {
+        return this.exceptionTable;
+    }
+
 }

@@ -8,11 +8,21 @@ public class Frame {
     public LocalVars localVars;     //localVars字段保存 局部变量表指针
     public OperandStack operandStack; //operandStack字段保存操作数栈指针。
     public Thread thread;
-    public Integer nextPC; // the next instruction after the call
+    public int nextPC; // the next instruction after the call
+
+
+    public Frame() {
+    }
 
     public Frame(Integer maxLocals, Integer maxStack) {
         this.localVars = new LocalVars(maxLocals);
         this.operandStack = new OperandStack(maxStack);
+    }
+
+    public Frame( Thread thread, LocalVars localVars, OperandStack operandStack) {
+        this.localVars = localVars;
+        this.operandStack = operandStack;
+        this.thread = thread;
     }
 
     // getters

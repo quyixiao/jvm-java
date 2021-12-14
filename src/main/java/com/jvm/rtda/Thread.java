@@ -12,7 +12,7 @@ JVM
 */
 public class Thread {
 
-    public Integer pc;     // the address of the instruction currently being executed
+    public int pc;     // the address of the instruction currently being executed
     public Stack stack;
 
 
@@ -42,6 +42,21 @@ public class Thread {
     //CurrentFrame()方法返回当前帧
     public Frame CurrentFrame() {
         return this.stack.top();
+    }
+
+
+    public Frame NewFrame(int maxLocals, int maxStack) {
+        return newFrame(this, maxLocals, maxStack);
+    }
+
+
+    //Thread结构体的NewFrame()方法是新增加的
+    public Frame newFrame(Thread thread, int maxLocals, int maxStack) {
+        return new Frame(
+                thread,
+                new LocalVars(maxLocals),
+                new OperandStack(maxStack)
+        );
     }
 
 

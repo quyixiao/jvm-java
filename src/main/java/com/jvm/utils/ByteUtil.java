@@ -89,6 +89,7 @@ public class ByteUtil
     }
 
 
+
     public static long getLong(byte[] bytes)
     {
         return(0xffL & (long)bytes[0]) | (0xff00L & ((long)bytes[1] << 8)) | (0xff0000L & ((long)bytes[2] << 16)) | (0xff000000L & ((long)bytes[3] << 24))

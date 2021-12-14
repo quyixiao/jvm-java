@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class Stack {
 
-    public Integer maxSize;                        //maxSize字段保存栈的容量(最多可以容纳多少帧)
-    public Integer size;            //size字段保 存栈的当前大小，
+    public int maxSize;                        //maxSize字段保存栈的容量(最多可以容纳多少帧)
+    public int size;            //size字段保 存栈的当前大小，
     public Frame _top; // stack is implemented as linked list _top字段保存栈顶指针
 
 

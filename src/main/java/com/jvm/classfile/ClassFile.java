@@ -47,8 +47,6 @@ public class ClassFile {
     public AttributeInfo[] attributes;
 
 
-
-
     public static ClassFile Parse(byte[] classData) {
         ClassReader cr = new ClassReader(classData);
         ClassFile cf = new ClassFile();
@@ -115,8 +113,30 @@ public class ClassFile {
                 }
 
         }
-
-
         ExceptionUtils.throwException("java.lang.UnsupportedClassVersionError!");
+    }
+
+    public Uint16 MinorVersion() {
+        return this.minorVersion;
+    }
+
+    public Uint16 MajorVersion() {
+        return this.majorVersion;
+    }
+
+    public ConstantPool ConstantPool() {
+        return this.constantPool;
+    }
+
+    public Uint16 AccessFlags() {
+        return this.accessFlags;
+    }
+
+    public MemberInfo[] Fields() {
+        return this.fields;
+    }
+
+    public MemberInfo[] Methods() {
+        return this.methods;
     }
 }

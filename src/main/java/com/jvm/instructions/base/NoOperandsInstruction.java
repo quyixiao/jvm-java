@@ -5,7 +5,7 @@ import com.jvm.rtda.Frame;
 import com.jvm.rtda.OperandStack;
 
 //NoOperandsInstruction表示没有操作数的指令，所以没有定义
-public abstract class NoOperandsInstruction implements Instruction {
+public abstract class NoOperandsInstruction extends AbstractInstruction implements Instruction {
     @Override
     public void FetchOperands(BytecodeReader reader) {
         // empty
@@ -49,35 +49,6 @@ public abstract class NoOperandsInstruction implements Instruction {
     }
 
 
-    public void _aload(Frame frame, int index) {
-        Object ref = frame.LocalVars().GetRef(index);
-        frame.OperandStack().PushRef(ref);
-    }
-
-
-    public void _dload(Frame frame, int index) {
-        double val = frame.LocalVars().GetDouble(index);
-        frame.OperandStack().PushDouble(val);
-    }
-
-
-    public void _iload(Frame frame, int index) {
-        int val = frame.LocalVars().GetInt(index);
-        frame.OperandStack().PushInt(val);
-    }
-
-
-    public void _lload(Frame frame, int index) {
-        Long val = frame.LocalVars().GetLong(index);
-        frame.OperandStack().PushLong(val);
-    }
-
-
-
-    public void _fload(Frame frame, int index) {
-        float val = frame.LocalVars().GetFloat(index);
-        frame.OperandStack().PushFloat(val);
-    }
 
 }
 

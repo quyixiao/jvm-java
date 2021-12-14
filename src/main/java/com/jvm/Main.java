@@ -1,6 +1,7 @@
 package com.jvm;
 
 import com.jvm.classfile.ClassFile;
+import com.jvm.classfile.MemberInfo;
 import com.jvm.classpath.Classpath;
 import com.jvm.rtda.Frame;
 import com.jvm.rtda.LocalVars;
@@ -15,13 +16,36 @@ public class Main {
 
     public static void main(String[] args) {
         Cmd cmd = new Cmd();
-        cmd.setCpOption("/Users/quyixiao/gitlab/jvm-java/target/test-classes/com/test");
+        cmd.setCpOption("/Users/quyixiao/gitlab/jvm-java/target/test-classes/com/test/ch05");
         cmd.setXjreOption("/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre");
+        cmd.setJclass("GaussTest");
         startJVM(cmd);
 
     }
 
     public static void startJVM(Cmd cmd) {
+        Classpath classpath = new Classpath(cmd.getXjreOption(), cmd.getCpOption());
+        byte[] data = classpath.readClass(cmd.getJclass());
+        System.out.println(Arrays.toString(data));
+        ClassFile cf = ClassFile.Parse(data);
+        MemberInfo mainMethod = getMainMethod(cf);
+        if (mainMethod != null) {
+            Interpreter.interpret(mainMethod);
+        }
+    }
+
+
+    public static MemberInfo getMainMethod(ClassFile cf) {
+        for (MemberInfo m : cf.Methods()) {
+            if ("main".equals(m.Name()) && "([Ljava/lang/String;)V".equals(m.Descriptor())) {
+                return m;
+            }
+        }
+        return null;
+    }
+
+
+    public static void startJVM_4(Cmd cmd) {
         Classpath classpath = new Classpath(cmd.getXjreOption(), cmd.getCpOption());
         byte[] classData = classpath.readClass("CXXXX");
         //System.out.println(Arrays.toString(classData));
@@ -35,9 +59,7 @@ public class Main {
         testOperandStack(frame.operandStack);
 
 
-
     }
-
 
     public static void printClassInfo(ClassFile cf) {
         log.info("version:{}.{}", cf.getMajorVersion().Value(), cf.getMinorVersion().Value());
