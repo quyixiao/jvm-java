@@ -13,5 +13,10 @@ public class ConstantNameAndTypeInfo implements ConstantInfo {
         this.nameIndex = reader.readUint16();
         this.descriptorIndex = reader.readUint16();
     }
+
+    @Override
+    public Object Value() {
+        return null;
+    }
 }
 

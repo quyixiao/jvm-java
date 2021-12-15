@@ -23,4 +23,9 @@ public class ConstantMethodrefInfo implements ConstantInfo {
     public void readInfo(ClassReader reader) {
         this.constantMemberrefInfo.readInfo(reader);
     }
+
+    @Override
+    public Object Value() {
+        return null;
+    }
 }

@@ -25,6 +25,11 @@ public class ConstantStringInfo implements ConstantInfo {
         this.stringIndex = reader.readUint16();
     }
 
+    @Override
+    public Object Value() {
+        return null;
+    }
+
 
     public String String() {
         return this.cp.getUtf8(this.stringIndex);

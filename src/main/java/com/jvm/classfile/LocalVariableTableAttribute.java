@@ -24,4 +24,9 @@ public class LocalVariableTableAttribute implements ConstantInfo,AttributeInfo {
         }
 
     }
+
+    @Override
+    public Object Value() {
+        return null;
+    }
 }

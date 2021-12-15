@@ -28,4 +28,9 @@ public class UnparsedAttribute implements ConstantInfo, AttributeInfo {
         this.info = reader.readBytes(this.length.Value());
     }
 
+    @Override
+    public Object Value() {
+        return null;
+    }
+
 }

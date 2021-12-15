@@ -8,4 +8,9 @@ public class MarkerAttribute implements ConstantInfo {
     public void readInfo(ClassReader reader) {
 
     }
+
+    @Override
+    public Object Value() {
+        return null;
+    }
 }

@@ -67,4 +67,17 @@ public class MemberInfo {
     }
 
 
+
+
+
+    public ConstantValueAttribute  ConstantValueAttribute()  {
+        for ( AttributeInfo attrInfo :this.attributes ){
+            if(attrInfo instanceof  ConstantValueAttribute){
+                return (ConstantValueAttribute)attrInfo;
+            }
+        }
+        return null;
+    }
+
+
 }

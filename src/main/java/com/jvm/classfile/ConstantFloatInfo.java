@@ -1,9 +1,7 @@
 package com.jvm.classfile;
 
-import com.jvm.data.Uint32;
 import com.jvm.utils.ByteUtil;
 import lombok.Data;
-import lombok.val;
 
 /*
 CONSTANT_Float_info {
@@ -12,18 +10,19 @@ CONSTANT_Float_info {
 }
 */
 @Data
-public class ConstantFloatInfo implements ConstantInfo{
+public class ConstantFloatInfo implements ConstantInfo<Float> {
 
-    public  Float val;
-
-
-
-
+    public Float val;
 
     @Override
     public void readInfo(ClassReader reader) {
         byte[] bytes = reader.readBytes(4);
         this.val = ByteUtil.getFloat(bytes);
+    }
+
+    @Override
+    public Float Value() {
+        return this.val;
     }
 
 

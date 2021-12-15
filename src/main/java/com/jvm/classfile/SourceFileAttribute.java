@@ -20,6 +20,11 @@ public class SourceFileAttribute implements ConstantInfo,AttributeInfo {
         this.sourceFileIndex = reader.readUint16();
     }
 
+    @Override
+    public Object Value() {
+        return null;
+    }
+
 
     public String FileName() {
         return this.cp.getUtf8(this.sourceFileIndex);

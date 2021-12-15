@@ -44,4 +44,9 @@ public class ConstantPool implements ConstantInfo {
     public void readInfo(ClassReader reader) {
 
     }
+
+    @Override
+    public Object Value() {
+        return null;
+    }
 }

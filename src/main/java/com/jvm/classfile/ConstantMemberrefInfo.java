@@ -22,6 +22,11 @@ public class ConstantMemberrefInfo implements ConstantInfo {
         this.nameAndTypeIndex = reader.readUint16();
     }
 
+    @Override
+    public Object Value() {
+        return null;
+    }
+
     public String ClassName() {
         return this.cp.getClassName(this.classIndex);
     }

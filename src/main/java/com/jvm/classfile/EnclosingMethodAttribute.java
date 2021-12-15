@@ -38,4 +38,11 @@ public class EnclosingMethodAttribute implements ConstantInfo {
         }
     }
 
+    @Override
+    public Object Value() {
+        return null;
+    }
+
+
+
 }

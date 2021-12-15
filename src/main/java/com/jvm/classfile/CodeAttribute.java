@@ -52,6 +52,11 @@ public class CodeAttribute implements ConstantInfo, AttributeInfo {
         this.attributes = AttributeInfoUtils.readAttributes(reader, cp);
     }
 
+    @Override
+    public Object Value() {
+        return null;
+    }
+
 
     public ExceptionTableEntry[] readExceptionTable(ClassReader reader) {
         Uint16 exceptionTableLength = reader.readUint16();

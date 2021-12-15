@@ -36,4 +36,9 @@ public class LocalVariableTypeTableAttribute implements ConstantInfo {
             );
         }
     }
+
+    @Override
+    public Object Value() {
+        return null;
+    }
 }

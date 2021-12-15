@@ -14,12 +14,26 @@ ConstantValue_attribute {
 */
 @Data
 public class ConstantValueAttribute implements ConstantInfo , AttributeInfo {
+
     public Uint16 constantValueIndex;
 
 
     @Override
     public void readInfo(ClassReader reader) {
         this.constantValueIndex = reader.readUint16();
+    }
+
+
+
+    public Uint16 ConstantValueIndex() {
+        return this.constantValueIndex;
+    }
+
+
+
+    @Override
+    public Object Value() {
+        return null;
     }
 
 

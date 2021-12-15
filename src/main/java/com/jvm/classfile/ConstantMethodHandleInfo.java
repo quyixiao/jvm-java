@@ -23,5 +23,10 @@ public class ConstantMethodHandleInfo implements  ConstantInfo {
         this.referenceIndex = reader.readUint16();
     }
 
+    @Override
+    public Object Value() {
+        return null;
+    }
+
 
 }

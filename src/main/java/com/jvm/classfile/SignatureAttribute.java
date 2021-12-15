@@ -22,6 +22,11 @@ public class SignatureAttribute implements ConstantInfo {
         this.signatureIndex = reader.readUint16();
     }
 
+    @Override
+    public Object Value() {
+        return null;
+    }
+
 
     public String  Signature()  {
         return this.cp.getUtf8(this.signatureIndex);

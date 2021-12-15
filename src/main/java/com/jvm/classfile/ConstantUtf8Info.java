@@ -31,6 +31,11 @@ public class ConstantUtf8Info implements ConstantInfo {
         }
     }
 
+    @Override
+    public Object Value() {
+        return null;
+    }
+
 
     public String Str() {
         return this.str;

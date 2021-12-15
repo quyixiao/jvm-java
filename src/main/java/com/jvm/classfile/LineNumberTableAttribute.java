@@ -30,4 +30,9 @@ public class LineNumberTableAttribute implements ConstantInfo ,AttributeInfo {
                     reader.readUint16());
         }
     }
+
+    @Override
+    public Object Value() {
+        return null;
+    }
 }

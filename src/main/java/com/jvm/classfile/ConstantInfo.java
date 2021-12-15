@@ -9,11 +9,13 @@ cp_info {
     u1 info[];
 }
 */
-public interface ConstantInfo {
+public interface ConstantInfo <T> {
 
 
     void readInfo(ClassReader reader);
 
+
+    T Value();
 
 
 
