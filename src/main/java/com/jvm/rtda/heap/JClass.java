@@ -1,6 +1,7 @@
 package com.jvm.rtda.heap;
 
 import com.jvm.classfile.ClassFile;
+import com.jvm.classfile.MemberInfo;
 import com.jvm.data.Uint16;
 
 public class JClass {
@@ -25,15 +26,38 @@ public class JClass {
         this.superClassName = cf.SuperClassName();
         this.interfaceNames = cf.InterfaceNames();
         this.constantPool = new JConstantPool(this, cf.constantPool);
-        this.fields = fields;
-        this.methods = methods;
-        this.loader = loader;
-        this.superClass = superClass;
-        this.interfaces = interfaces;
-        this.instanceSlotCount = instanceSlotCount;
-        this.staticSlotCount = staticSlotCount;
-        this.staticVars = staticVars;
+        this.fields =newFields(this,cf.fields);
+        this.methods = newMethods(this,cf.methods);
     }
+
+    //修改newFields()方法，从字段属性表中读取constValueIndex， 代码改动如下:
+    public JField[] newFields(JClass jClass, MemberInfo[] cfFields) {
+        JField fields[] = new JField[cfFields.length];
+        for (int i = 0; i < fields.length; i++) {
+            MemberInfo cfField = cfFields[i];
+            fields[i] = new JField();
+            fields[i].classMember.jClass = jClass;
+            fields[i].classMember.copyMemberInfo(cfField);
+            fields[i].copyAttributes(cfField);
+        }
+        return fields;
+    }
+
+
+
+    //code字段存放方法字节码。 newMethods()函数根据class文件中的方法信息创建Method表
+    public JMethod[] newMethods(JClass jClass, MemberInfo[] cfMethods) {
+        JMethod methods[] = new JMethod[cfMethods.length];
+        for (int i = 0; i < cfMethods.length; i++) {
+            MemberInfo cfMethod = cfMethods[i];
+            methods[i] = new JMethod();
+            methods[i].classMember.jClass = jClass;
+            methods[i].classMember.copyMemberInfo(cfMethod);
+            methods[i].copyAttributes(cfMethod);//maxStack、maxLocals和字节码在class文件中 是以属性的形式存储在method_info结构中的。
+        }
+        return methods;
+    }
+
 
 
     public boolean IsPublic() {
@@ -68,8 +92,17 @@ public class JClass {
         return 0 != (this.accessFlags.Value() & Constants.ACC_ENUM);
     }
 
+
+
+    // getters
+    public JConstantPool ConstantPool()  {
+        return this.constantPool;
+    }
+
+
+
     public Slots StaticVars() {
-        return this.staticVars;
+         return this.staticVars;
     }
 
     // jvms 5.4.4
@@ -156,12 +189,16 @@ public class JClass {
     public JMethod getStaticMethod(String name, String descriptor) {
         for (JMethod method : this.methods) {
             if (method.classMember.IsStatic() &&
-                    method.classMember.name == name &&
-                    method.classMember.descriptor == descriptor) {
+                    method.classMember.name.equals(name) &&
+                    method.classMember.descriptor.equals(descriptor)) {
                 return method;
             }
         }
         return null;
     }
 
+    //这里只是调用了Object结构体的newObject()方法
+    public JObject NewObject()  {
+        return new JObject(this);
+    }
 }

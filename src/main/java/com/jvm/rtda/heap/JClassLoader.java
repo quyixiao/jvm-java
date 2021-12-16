@@ -57,7 +57,7 @@ public class JClassLoader {
     // jvms 5.4.3.1
 //除java.lang.Object以外，所有的类都有且仅有一个 超类。因此，除非是Object类，否则需要递归调用LoadClass()方法 加载它的超类
     public void resolveSuperClass(JClass jClass) {
-        if (jClass.name != "java/lang/Object") {
+        if (!"java/lang/Object".equals(jClass.name ) ) {
             jClass.superClass = jClass.loader.LoadClass(jClass.superClassName);
         }
     }
@@ -86,12 +86,15 @@ public class JClassLoader {
 
     // jvms 5.4.2
     public void prepare(JClass jClass) {
-        //calcInstanceFieldSlotIds()函数计算实例字段的个数，同时给它 们编号
+        //calcInstanceFieldSlotIds()函数计算实例字段的个数，同时给它们编号
         calcInstanceFieldSlotIds(jClass);
         calcStaticFieldSlotIds(jClass);
         allocAndInitStaticVars(jClass);
     }
 
+
+    //第一个问题比较好解决，只要数一下类的字段即可。假设某个 类有m个静态字段和n个实例字段，那么静态变量和实例变量所需 的空间大小就分别是m'和n'。
+//这里要注意两点。首先，类是可以继承 的。也就是说，在数实例变量时，要递归地数超类的实例变量;其 次，long和double字段都占据两个位置，所以m'>=m，n'>=n。
     public void calcInstanceFieldSlotIds(JClass jClass) {
         int slotId = 0;
         if (jClass.superClass != null) {
@@ -152,15 +155,19 @@ public class JClassLoader {
                 case "I":
                     int val = (int) cp.GetConstant(cpIndex);
                     vars.SetInt(slotId, val);
+                    break;
                 case "J":
                     long vall = (long) cp.GetConstant(cpIndex);
                     vars.SetLong(slotId, vall);
+                    break;
                 case "F":
                     float valf = (float) cp.GetConstant(cpIndex);
                     vars.SetFloat(slotId, valf);
+                    break;
                 case "D":
                     double vald = (double) cp.GetConstant(cpIndex);
                     vars.SetDouble(slotId, vald);
+                    break;
                 case "Ljava/lang/String;":
                     ExceptionUtils.throwException("Ljava/lang/String;");
             }

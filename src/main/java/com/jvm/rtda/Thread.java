@@ -1,6 +1,8 @@
 package com.jvm.rtda;
 
 
+import com.jvm.rtda.heap.JMethod;
+
 /*
 JVM
   Thread
@@ -58,6 +60,23 @@ public class Thread {
                 new OperandStack(maxStack)
         );
     }
+
+
+    public Frame  newFrame(Thread  thread, JMethod method)  {
+        return new Frame(
+                  thread,  method,
+                    new LocalVars(method.MaxLocals()),
+                    new OperandStack(method.MaxStack())
+        ) ;
+    }
+
+
+
+    public Frame NewFrame(JMethod method)  {
+        return newFrame(this, method);
+    }
+
+
 
 
 }

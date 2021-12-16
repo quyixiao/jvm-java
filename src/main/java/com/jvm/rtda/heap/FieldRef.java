@@ -11,6 +11,7 @@ public class FieldRef {
     //Field结构体比较简单，目前所有信息都是从ClassMember中继 承过来的。newFields()函数根据class文件的字段信息创建字段表
 //field字段缓存解析后的字段指针，newFieldRef()方法创建 FieldRef实例
     public FieldRef(JConstantPool cp, ConstantFieldrefInfo refInfo) {
+        this.memberRef = new MemberRef();
         this.memberRef.symRef.cp = cp;
         this.memberRef.copyMemberRefInfo(refInfo.constantMemberrefInfo);
     }
@@ -45,7 +46,7 @@ public class FieldRef {
 //(非public，非protected，也 非privated)，则只有同一个包下的类可以访问。否则，字段是 private，只有声明这个字段的类才能访问。
     public JField lookupField(JClass c, String name, String descriptor) {
         for (JField field : c.fields) {
-            if (field.classMember.name == name && field.classMember.descriptor == descriptor) {
+            if (field.classMember.name.equals(name) && field.classMember.descriptor.equals( descriptor)) {
                 return field;
             }
         }

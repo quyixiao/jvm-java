@@ -9,17 +9,11 @@ public class JField {
     public int constValueIndex;
     public int slotId;
 
-    //修改newFields()方法，从字段属性表中读取constValueIndex， 代码改动如下:
-    public JField[] newFields(JClass jClass, MemberInfo[] cfFields) {
-        JField fields[] = new JField[cfFields.length];
-        for (int i = 0; i < fields.length; i++) {
-            MemberInfo cfField = cfFields[i];
-            fields[i] = new JField();
-            fields[i].classMember.jClass = jClass;
-            fields[i].classMember.copyMemberInfo(cfField);
-            fields[i].copyAttributes(cfField);
+
+    public JField() {
+        if (this.classMember == null){
+            this.classMember = new ClassMember();
         }
-        return fields;
     }
 
     public void copyAttributes(MemberInfo cfField) {

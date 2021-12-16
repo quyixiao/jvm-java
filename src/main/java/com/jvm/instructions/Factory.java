@@ -13,10 +13,14 @@ import com.jvm.instructions.comparisons.lcmp.LCMP;
 import com.jvm.instructions.constants.consts.*;
 import com.jvm.instructions.constants.ipush.BIPUSH;
 import com.jvm.instructions.constants.ipush.SIPUSH;
+import com.jvm.instructions.constants.ldc.LDC;
+import com.jvm.instructions.constants.ldc.LDC2_W;
+import com.jvm.instructions.constants.ldc.LDC_W;
 import com.jvm.instructions.constants.nop.NOP;
 import com.jvm.instructions.control.GOTO;
 import com.jvm.instructions.control.LOOKUP_SWITCH;
 import com.jvm.instructions.control.TABLE_SWITCH;
+import com.jvm.instructions.control.returnx.RETURN;
 import com.jvm.instructions.conversions.d2x.D2F;
 import com.jvm.instructions.conversions.d2x.D2I;
 import com.jvm.instructions.conversions.d2x.D2L;
@@ -67,6 +71,7 @@ import com.jvm.instructions.math.sub.ISUB;
 import com.jvm.instructions.math.sub.LSUB;
 import com.jvm.instructions.math.xor.IXOR;
 import com.jvm.instructions.math.xor.LXOR;
+import com.jvm.instructions.references.*;
 import com.jvm.instructions.stack.dup.*;
 import com.jvm.instructions.stack.pop.POP;
 import com.jvm.instructions.stack.pop.POP2;
@@ -77,7 +82,9 @@ import com.jvm.instructions.stores.fstore.*;
 import com.jvm.instructions.stores.istore.*;
 import com.jvm.instructions.stores.lstore.*;
 import com.jvm.utils.ExceptionUtils;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Factory {
 
 
@@ -124,13 +131,12 @@ public class Factory {
             case 0x11:
                 return new SIPUSH();
             // ldc系列指令从运行时常量池中加载常量值，并把它推入操作 数栈。ldc系列指令属于常量类指令，共3条。其中ldc和ldc_w指令用 于加载int、float和字符串常量
-            //case 0x12:
-            //    return new LDC ();
-            //case 0x13:
-            //    return new LDC_W ();
-            //case 0x14:
-            //    return &LDC2_W {
-            //}
+            case 0x12:
+                return new LDC();
+            case 0x13:
+                return new LDC_W();
+            case 0x14:
+                return new LDC2_W();
             case 0x15:
                 return new ILOAD();
             case 0x16:
@@ -447,26 +453,21 @@ public class Factory {
             //    return dreturn
             //case 0xb0:
             //    return areturn
-            //case 0xb1:
-            //    return _return
-            //case 0xb2:
-            //    return new GET_STATIc
-            //}
-            //case 0xb3:
-            //    return &PUT_STATIC {
-            //}
-            //case 0xb4:
-            //    return &GET_FIELD {
-            //}
-            //case 0xb5:
-            //    return &PUT_FIELD {
-            //}
-            //case 0xb6:
-            //    return &INVOKE_VIRTUAL {
-            //}
-            //case 0xb7:
-            //    return &INVOKE_SPECIAL {
-            //}
+            case 0xb1:
+                return new RETURN();
+            case 0xb2:
+                return new GET_STATIC();
+            case 0xb3:
+                return new PUT_STATIC();
+            case 0xb4:
+                return new GET_FIELD();
+
+            case 0xb5:
+                return new PUT_FIELD();
+            case 0xb6:
+                return new INVOKE_VIRTUAL();
+            case 0xb7:
+                return new INVOKE_SPECIAL();
             //case 0xb8:
             //    return &INVOKE_STATIC {
             //}
@@ -475,9 +476,8 @@ public class Factory {
             //}
             // case 0xba:
             // 	return &INVOKE_DYNAMIC{}
-            //case 0xbb: //
-            //    return &NEW {
-            //}
+            case 0xbb: //
+                return new NEW();
             //case 0xbc:
             //    return &NEW_ARRAY {
             //}
@@ -488,12 +488,10 @@ public class Factory {
             //    return arraylength
             //case 0xbf:
             //    return athrow            //
-            //case 0xc0:
-            //    return &CHECK_CAST {
-            //}
-            //case 0xc1:
-            //    return &INSTANCE_OF {
-            //}
+            case 0xc0:
+                return new CHECK_CAST();
+            case 0xc1:
+                return new INSTANCE_OF();
             //case 0xc2:
             //    return monitorenter
             //case 0xc3:
@@ -518,6 +516,7 @@ public class Factory {
             //   return invoke_native
             // case 0xff: impdep2
             default:
+                log.info("-------------------openCode = " + opcode);
                 ExceptionUtils.throwException("Unsupported opcode: " + opcode);
         }
         return null;

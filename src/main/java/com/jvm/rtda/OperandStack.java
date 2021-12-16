@@ -1,5 +1,6 @@
 package com.jvm.rtda;
 
+import com.jvm.rtda.heap.JObject;
 import com.jvm.utils.ByteUtil;
 import lombok.Data;
 
@@ -97,16 +98,16 @@ public class OperandStack {
     }
 
 
-    public void PushRef(Object ref) {
+    public void PushRef(JObject ref) {
         initSlot(this.size);
         this.slots[this.size].ref = ref;
         this.size++;
     }
 
     //弹出引用后，把Slot结构体的ref字段设置成nil，这样 做是为了帮助Go的垃圾收集器回收Object结构体实例。
-    public Object PopRef() {
+    public JObject PopRef() {
         this.size--;
-        Object ref = this.slots[this.size].ref;
+        JObject ref = this.slots[this.size].ref;
         this.slots[this.size].ref = null;
         return ref;
     }

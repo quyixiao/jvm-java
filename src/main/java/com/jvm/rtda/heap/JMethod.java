@@ -10,20 +10,11 @@ public class JMethod {
     public int maxLocals;
     public byte[] code;
 
-
-    //code字段存放方法字节码。 newMethods()函数根据class文件中的方法信息创建Method表
-    public JMethod[] newMethods(JClass jClass, MemberInfo[] cfMethods) {
-        JMethod methods[] = new JMethod[cfMethods.length];
-        for (int i = 0; i < cfMethods.length; i++) {
-            MemberInfo cfMethod = cfMethods[i];
-            methods[i] = new JMethod();
-            methods[i].classMember.jClass = jClass;
-            methods[i].classMember.copyMemberInfo(cfMethod);
-            methods[i].copyAttributes(cfMethod);//maxStack、maxLocals和字节码在class文件中 是以属性的形式存储在method_info结构中的。
+    public JMethod() {
+        if(this.classMember == null){
+            this.classMember = new ClassMember();
         }
-        return methods;
     }
-
 
     public void copyAttributes(MemberInfo cfMethod) {
         CodeAttribute codeAttr = cfMethod.CodeAttribute();

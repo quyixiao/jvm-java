@@ -1,12 +1,16 @@
 package com.jvm.instructions.base;
 
 import com.jvm.rtda.Frame;
+import com.jvm.rtda.OperandStack;
+import com.jvm.rtda.heap.JClass;
+import com.jvm.rtda.heap.JObject;
+import com.jvm.utils.ExceptionUtils;
 
 public abstract class AbstractInstruction {
 
 
     public void _aload(Frame frame, int index) {
-        Object ref = frame.LocalVars().GetRef(index);
+        JObject ref = frame.LocalVars().GetRef(index);
         frame.OperandStack().PushRef(ref);
     }
 
@@ -36,7 +40,7 @@ public abstract class AbstractInstruction {
 
 
     public void _astore(Frame frame, int index) {
-        Object ref = frame.OperandStack().PopRef();
+        JObject ref = frame.OperandStack().PopRef();
         frame.LocalVars().SetRef(index, ref);
     }
 
@@ -63,5 +67,21 @@ public abstract class AbstractInstruction {
         long val = frame.OperandStack().PopLong();
         frame.LocalVars().SetLong(index, val);
     }
+
+
+    public void _ldc(Frame frame, int index) {
+        OperandStack stack = frame.OperandStack();
+        JClass jClass = frame.Method().classMember.Class();
+        Object c = jClass.ConstantPool().GetConstant(index);
+
+        if (c instanceof Integer) {
+            stack.PushInt((int) c);
+        } else if (c instanceof Float) {
+            stack.PushFloat((Float) c);
+        } else {
+            ExceptionUtils.throwException("todo: ldc!");
+        }
+    }
+
 
 }

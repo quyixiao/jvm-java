@@ -1,5 +1,6 @@
 package com.jvm.rtda;
 
+import com.jvm.rtda.heap.JMethod;
 import lombok.Data;
 
 @Data
@@ -9,6 +10,7 @@ public class Frame {
     public OperandStack operandStack; //operandStack字段保存操作数栈指针。
     public Thread thread;
     public int nextPC; // the next instruction after the call
+    public JMethod method;
 
 
     public Frame() {
@@ -19,11 +21,20 @@ public class Frame {
         this.operandStack = new OperandStack(maxStack);
     }
 
-    public Frame( Thread thread, LocalVars localVars, OperandStack operandStack) {
+    public Frame(Thread thread, LocalVars localVars, OperandStack operandStack) {
         this.localVars = localVars;
         this.operandStack = operandStack;
         this.thread = thread;
     }
+
+
+    public Frame(Thread thread, JMethod method, LocalVars localVars, OperandStack operandStack) {
+        this.localVars = localVars;
+        this.operandStack = operandStack;
+        this.thread = thread;
+        this.method = method;
+    }
+
 
     // getters
     public LocalVars LocalVars() {
@@ -41,12 +52,15 @@ public class Frame {
     }
 
     public int NextPC() {
-
         return this.nextPC;
     }
 
     public void SetNextPC(int nextPC) {
         this.nextPC = nextPC;
+    }
+
+    public JMethod Method() {
+        return this.method;
     }
 
 

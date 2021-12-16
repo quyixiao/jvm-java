@@ -2,31 +2,32 @@ package com.jvm.rtda.heap;
 
 import com.jvm.rtda.Slot;
 import com.jvm.utils.ByteUtil;
-import lombok.val;
 
 public class Slots {
     public Slot[] slots;
 
-
     public Slots(int slotCount) {
         slots = new Slot[slotCount];
+        for (int i = 0; i < slotCount; i++) {
+            slots[i] = new Slot();
+        }
     }
 
-
-    public void  SetInt(int index , int val ) {
+    public void SetInt(int index, int val) {
         this.slots[index].num = val;
     }
-    public int  GetInt(int index ) {
+
+    public int GetInt(int index) {
         return this.slots[index].num;
     }
 
-    public void  SetFloat(int index , float val ) {
-        byte [] bits = ByteUtil.getBytes(val);
+    public void SetFloat(int index, float val) {
+        byte[] bits = ByteUtil.getBytes(val);
         this.slots[index].num = ByteUtil.getInt(bits);
     }
 
-    public float GetFloat(int index )  {
-        byte bits [] = ByteUtil.getBytes(this.slots[index].num);
+    public float GetFloat(int index) {
+        byte bits[] = ByteUtil.getBytes(this.slots[index].num);
         return ByteUtil.getFloat(bits);
     }
 
@@ -63,11 +64,11 @@ public class Slots {
     }
 
 
-    public void SetRef(int index, Object ref) {
+    public void SetRef(int index, JObject ref) {
         this.slots[index].ref = ref;
     }
 
-    public Object GetRef(Integer index) {
+    public JObject GetRef(Integer index) {
         return this.slots[index].ref;
     }
 

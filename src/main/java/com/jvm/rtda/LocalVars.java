@@ -1,5 +1,6 @@
 package com.jvm.rtda;
 
+import com.jvm.rtda.heap.JObject;
 import com.jvm.utils.ByteUtil;
 
 public class LocalVars {
@@ -69,12 +70,12 @@ public class LocalVars {
     }
 
 
-    public void SetRef(int index, Object ref) {
+    public void SetRef(int index, JObject ref) {
         initSlot(index);
         this.slots[index].ref = ref;
     }
 
-    public Object GetRef(Integer index) {
+    public JObject GetRef(Integer index) {
         return this.slots[index].ref;
     }
 

@@ -5,24 +5,24 @@ import com.jvm.classfile.MemberInfo;
 import com.jvm.instructions.Factory;
 import com.jvm.instructions.base.BytecodeReader;
 import com.jvm.instructions.base.Instruction;
+import com.jvm.instructions.control.returnx.RETURN;
+import com.jvm.instructions.references.INVOKE_VIRTUAL;
+import com.jvm.instructions.stack.dup.DUP;
 import com.jvm.rtda.Frame;
 import com.jvm.rtda.Thread;
+import com.jvm.rtda.heap.JMethod;
+
+import java.lang.reflect.Method;
 
 public class Interpreter {
 
 
     //interpret()方法的其余代码先创建一个Thread实例，然后创建 一个帧并把它推入Java虚拟机栈顶，最后执行方法。
-    public static void interpret(MemberInfo methodInfo) {
-        CodeAttribute codeAttr = methodInfo.CodeAttribute();        //得到Code属性之后，可以进一步获得执行方法所需的局部变 量表和操作数栈空间
-        int maxLocals = codeAttr.MaxLocals();
-        int maxStack = codeAttr.MaxStack();
-        byte bytecode[] = codeAttr.Code();
-
+    public static void interpret(JMethod jMethod) {
         Thread thread = new Thread();
-        Frame frame = thread.NewFrame(maxLocals, maxStack);
+        Frame frame = thread.NewFrame(jMethod);
         thread.PushFrame(frame);
-
-        loop(thread, bytecode);
+        loop(thread, jMethod.Code());
     }
 
 
@@ -38,7 +38,12 @@ public class Interpreter {
             reader.Reset(bytecode, pc);
             int opcode = reader.ReadUint8().Value();
             Instruction inst = Factory.NewInstruction(opcode);
+            System.out.println(inst);
+            if(inst instanceof INVOKE_VIRTUAL){
+                System.out.println("--------");
+            }
             inst.FetchOperands(reader);
+
             frame.SetNextPC(reader.PC());
             // execute
             inst.Execute(frame);
@@ -46,9 +51,6 @@ public class Interpreter {
     }
 
 
-    public static void  logInstruction(Frame frame, Instruction inst) {
-
-    }
 
 
 }

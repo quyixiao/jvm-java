@@ -6,6 +6,9 @@ import com.jvm.classpath.Classpath;
 import com.jvm.rtda.Frame;
 import com.jvm.rtda.LocalVars;
 import com.jvm.rtda.OperandStack;
+import com.jvm.rtda.heap.JClass;
+import com.jvm.rtda.heap.JClassLoader;
+import com.jvm.rtda.heap.JMethod;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -16,9 +19,9 @@ public class Main {
 
     public static void main(String[] args) {
         Cmd cmd = new Cmd();
-        cmd.setCpOption("/Users/quyixiao/gitlab/jvm-java/target/test-classes/com/test/ch05");
+        cmd.setCpOption("/Users/quyixiao/gitlab/jvm-java/target/test-classes/com/test/ch06");
         cmd.setXjreOption("/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre");
-        cmd.setJclass("GaussTest");
+        cmd.setJclass("MyObject");
         startJVM(cmd);
 
     }
@@ -27,8 +30,9 @@ public class Main {
         Classpath classpath = new Classpath(cmd.getXjreOption(), cmd.getCpOption());
         byte[] data = classpath.readClass(cmd.getJclass());
         System.out.println(Arrays.toString(data));
-        ClassFile cf = ClassFile.Parse(data);
-        MemberInfo mainMethod = getMainMethod(cf);
+        JClassLoader classLoader =  new JClassLoader(classpath );
+        JClass mainClass = classLoader.LoadClass(cmd.getJclass());
+        JMethod mainMethod = mainClass.GetMainMethod();
         if (mainMethod != null) {
             Interpreter.interpret(mainMethod);
         }

@@ -10,6 +10,11 @@ public class MemberRef {
     // 这只是Java语言的限制，而不是Java 虚拟机规范的限制。也就是说，站在Java虚拟机的角度，一个类是 完全可以有多个同名字段的，只要它们的类型互不相同就可以。
     public String descriptor;
 
+    public MemberRef() {
+        if(this.symRef == null){
+            this.symRef = new SymRef();
+        }
+    }
 
     //copyMemberRefInfo()方法从class文件内存储的字段或方法常量中 提取数据
     public void copyMemberRefInfo(ConstantMemberrefInfo refInfo) {
