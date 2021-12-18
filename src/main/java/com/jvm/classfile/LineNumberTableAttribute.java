@@ -3,8 +3,6 @@ package com.jvm.classfile;
 import com.jvm.data.Uint16;
 import lombok.Data;
 
-import java.awt.image.ImageConsumer;
-
 /*
 LineNumberTable_attribute {
     u2 attribute_name_index;
@@ -16,7 +14,7 @@ LineNumberTable_attribute {
 }
 */
 @Data
-public class LineNumberTableAttribute implements ConstantInfo ,AttributeInfo {
+public class LineNumberTableAttribute implements ConstantInfo, AttributeInfo {
 
     public LineNumberTableEntry lineNumberTable[];
 
@@ -30,6 +28,18 @@ public class LineNumberTableAttribute implements ConstantInfo ,AttributeInfo {
                     reader.readUint16());
         }
     }
+
+
+    public int GetLineNumber(int pc) {
+        for (int i = this.lineNumberTable.length - 1; i >= 0; i--) {
+            LineNumberTableEntry entry = this.lineNumberTable[i];
+            if (pc >= entry.startPc.Value()) {
+                return entry.lineNumber.Value();
+            }
+        }
+        return -1;
+    }
+
 
     @Override
     public Object Value() {

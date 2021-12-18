@@ -2,7 +2,9 @@ package com.jvm.rtda;
 
 import com.jvm.rtda.heap.JObject;
 import com.jvm.utils.ByteUtil;
+import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
 import lombok.Data;
+import lombok.val;
 
 @Data
 public class OperandStack {
@@ -128,6 +130,39 @@ public class OperandStack {
         if (this.slots[i] == null) {
             this.slots[i] = new Slot();
         }
+    }
+
+
+
+    public  void   Clear() {
+        this.size = 0;
+        for (int i = 0 ;i < this.slots.length ;i ++){
+            this.slots[i].ref = null;
+        }
+    }
+
+
+    public JObject GetRefFromTop(int n ) {
+        return this.slots[this.size-1-n].ref;
+    }
+
+
+    public void  PushBoolean(boolean val ) {
+        if (val) {
+            this.PushInt(1);
+        } else {
+            this.PushInt(0);
+        }
+    }
+
+
+    public boolean PopBoolean() {
+        return this.PopInt() == 1;
+    }
+
+    // todo
+    public OperandStack  NewOperandStack(int maxStack ) {
+        return new OperandStack(maxStack);
     }
 
 

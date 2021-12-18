@@ -8,7 +8,7 @@ public class Frame {
     public Frame lower;        //lower字段用来实现链表数据结构
     public LocalVars localVars;     //localVars字段保存 局部变量表指针
     public OperandStack operandStack; //operandStack字段保存操作数栈指针。
-    public Thread thread;
+    public JThread thread;
     public int nextPC; // the next instruction after the call
     public JMethod method;
 
@@ -21,14 +21,14 @@ public class Frame {
         this.operandStack = new OperandStack(maxStack);
     }
 
-    public Frame(Thread thread, LocalVars localVars, OperandStack operandStack) {
+    public Frame(JThread thread, LocalVars localVars, OperandStack operandStack) {
         this.localVars = localVars;
         this.operandStack = operandStack;
         this.thread = thread;
     }
 
 
-    public Frame(Thread thread, JMethod method, LocalVars localVars, OperandStack operandStack) {
+    public Frame(JThread thread, JMethod method, LocalVars localVars, OperandStack operandStack) {
         this.localVars = localVars;
         this.operandStack = operandStack;
         this.thread = thread;
@@ -47,7 +47,7 @@ public class Frame {
     }
 
 
-    public Thread Thread() {
+    public JThread Thread() {
         return this.thread;
     }
 
@@ -61,6 +61,12 @@ public class Frame {
 
     public JMethod Method() {
         return this.method;
+    }
+
+
+
+    public void  RevertNextPC() {
+        this.nextPC = this.thread.pc;
     }
 
 

@@ -12,13 +12,13 @@ JVM
         LocalVars
         OperandStack
 */
-public class Thread {
+public class JThread {
 
     public int pc;     // the address of the instruction currently being executed
     public Stack stack;
 
 
-    public Thread() {
+    public JThread() {
         this.stack = new Stack(1024);
     }
 
@@ -53,7 +53,7 @@ public class Thread {
 
 
     //Thread结构体的NewFrame()方法是新增加的
-    public Frame newFrame(Thread thread, int maxLocals, int maxStack) {
+    public Frame newFrame(JThread thread, int maxLocals, int maxStack) {
         return new Frame(
                 thread,
                 new LocalVars(maxLocals),
@@ -62,7 +62,7 @@ public class Thread {
     }
 
 
-    public Frame  newFrame(Thread  thread, JMethod method)  {
+    public Frame  newFrame(JThread thread, JMethod method)  {
         return new Frame(
                   thread,  method,
                     new LocalVars(method.MaxLocals()),
@@ -77,6 +77,17 @@ public class Thread {
     }
 
 
+
+
+
+
+    public Frame TopFrame() {
+        return this.stack.top();
+    }
+
+    public boolean IsStackEmpty()  {
+        return this.stack.isEmpty();
+    }
 
 
 }

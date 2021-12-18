@@ -2,6 +2,7 @@ package com.jvm.classfile;
 
 import com.jvm.data.Uint16;
 import lombok.Data;
+import sun.nio.cs.ext.IBM037;
 
 @Data
 public class ExceptionTableEntry {
@@ -17,4 +18,18 @@ public class ExceptionTableEntry {
         this.handlerPc = handlerPc;
         this.catchType = catchType;
     }
+
+    public Uint16  StartPc() {
+        return this.startPc;
+    }
+    public Uint16  EndPc() {
+        return this.endPc;
+    }
+    public Uint16  HandlerPc() {
+        return this.handlerPc;
+    }
+    public Uint16 CatchType() {
+        return this.catchType;
+    }
+
 }

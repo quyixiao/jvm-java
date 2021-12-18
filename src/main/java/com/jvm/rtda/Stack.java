@@ -58,4 +58,11 @@ public class Stack {
     }
 
 
+
+
+
+    public boolean isEmpty() {
+        return this._top == null;
+    }
+
 }

@@ -84,4 +84,18 @@ public abstract class AbstractInstruction {
     }
 
 
+
+    public void  checkNotNil( JObject ref ) {
+        if (ref == null){
+            ExceptionUtils.throwException("java.lang.NullPointerException");
+        }
+    }
+
+
+    public void  checkIndex(int arrLen ,int  index ) {
+        if (index < 0 || index >= arrLen) {
+            ExceptionUtils.throwException("ArrayIndexOutOfBoundsException");
+        }
+    }
+
 }

@@ -21,6 +21,14 @@ public class ExceptionsAttribute implements ConstantInfo,AttributeInfo {
         this.exceptionIndexTable = reader.readUint16s();
     }
 
+
+
+
+    public Uint16 [] ExceptionIndexTable() {
+        return this.exceptionIndexTable;
+    }
+
+
     @Override
     public Object Value() {
         return null;

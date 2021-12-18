@@ -85,4 +85,10 @@ public class LocalVars {
         }
     }
 
+
+    public void  SetSlot(int index ,  Slot slot) {
+        this.slots[index] = slot;
+    }
+
+
 }

@@ -39,6 +39,7 @@ import com.jvm.instructions.loads.dload.*;
 import com.jvm.instructions.loads.fload.*;
 import com.jvm.instructions.loads.iload.*;
 import com.jvm.instructions.loads.lload.*;
+import com.jvm.instructions.loads.xaload.*;
 import com.jvm.instructions.math.add.DADD;
 import com.jvm.instructions.math.add.FADD;
 import com.jvm.instructions.math.add.IADD;
@@ -81,6 +82,7 @@ import com.jvm.instructions.stores.dstore.*;
 import com.jvm.instructions.stores.fstore.*;
 import com.jvm.instructions.stores.istore.*;
 import com.jvm.instructions.stores.lstore.*;
+import com.jvm.instructions.stores.xastore.*;
 import com.jvm.utils.ExceptionUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -188,22 +190,22 @@ public class Factory {
                 return new ALOAD_2();
             case 0x2d:
                 return new ALOAD_3();
-            // case 0x2e:
-            //     return iaload
-            // case 0x2f:
-            //     return laload
-            // case 0x30:
-            //     return faload
-            // case 0x31:
-            //     return daload
-            // case 0x32:
-            //     return aaload
-            // case 0x33:
-            //     return baload
-            // case 0x34:
-            //     return caload
-            // case 0x35:
-            //     return saload
+            case 0x2e:
+                return new IALOAD();
+            case 0x2f:
+                return new LALOAD();
+            case 0x30:
+                return new FALOAD();
+            case 0x31:
+                return new DALOAD();
+            case 0x32:
+                return new AALOAD();
+            case 0x33:
+                return new BALOAD();
+            case 0x34:
+                return new CALOAD();
+            case 0x35:
+                return new SALOAD();
             case 0x36:
                 return new ISTORE();
             case 0x37:
@@ -255,22 +257,22 @@ public class Factory {
                 return new ASTORE_2();
             case 0x4e:
                 return new ASTORE_3();
-            //case 0x4f:
-            //    return new IA//STORE();
-            //case 0x50:
-            //    return lastore
-            //case 0x51:
-            //    return fastore
-            //case 0x52:
-            //    return dastore
-            //case 0x53:
-            //    return aastore
-            //case 0x54:
-            //    return bastore
-            //case 0x55:
-            //    return castore
-            //case 0x56:
-            //    return sastore
+            case 0x4f:
+                return new IASTORE();
+            case 0x50:
+                return new LASTORE();
+            case 0x51:
+                return new FASTORE();
+            case 0x52:
+                return new DASTORE();
+            case 0x53:
+                return new AASTORE();
+            case 0x54:
+                return new BASTORE();
+            case 0x55:
+                return new CASTORE();
+            case 0x56:
+                return new SASTORE();
             case 0x57:
                 return new POP();
             case 0x58:
