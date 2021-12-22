@@ -74,9 +74,9 @@ public abstract class AbstractInstruction {
         JClass jClass = frame.Method().classMember.Class();
         Object c = jClass.ConstantPool().GetConstant(index);
 
-        if (c instanceof Integer) {
+        if (c instanceof Integer ) {
             stack.PushInt((int) c);
-        } else if (c instanceof Float) {
+        } else if (c instanceof Float ) {
             stack.PushFloat((Float) c);
         } else {
             ExceptionUtils.throwException("todo: ldc!");

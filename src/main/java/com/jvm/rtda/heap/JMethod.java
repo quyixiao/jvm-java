@@ -107,17 +107,23 @@ public class JMethod {
         switch (returnType.toCharArray()[0]) {
             case 'V':
                 this.code = new byte[]{(byte) 0xfe, (byte) 0xb1}; // return    0xfe = 15 * 16 + 14
+                break;
             case 'L':
             case '[':
                 this.code = new byte[]{(byte) 0xfe, (byte) 0xb0}; // areturn
+                break;
             case 'D':
                 this.code = new byte[]{(byte) 0xfe, (byte) 0xaf}; // dreturn
+                break;
             case 'F':
                 this.code = new byte[]{(byte) 0xfe, (byte) 0xae};// freturn
+                break;
             case 'J':
                 this.code = new byte[]{(byte) 0xfe, (byte) 0xad}; // lreturn
+                break;
             default:
                 this.code = new byte[]{(byte) 0xfe, (byte) 0xac};// ireturn
+                break;
         }
     }
 

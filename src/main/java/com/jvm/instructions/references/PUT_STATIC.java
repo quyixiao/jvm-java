@@ -27,7 +27,7 @@ public class PUT_STATIC extends Index16Instruction {
 
         //如果是final字段，则实际操作的 是静态常量，只能在类初始化方法中给它赋值。否则，会抛出 IllegalAccessError异常。类初始化方法由编译器生成，名字是 <clinit>
         if (field.classMember.IsFinal()) {
-            if (currentClass != jClass || currentMethod.classMember.Name() != "<clinit>") {
+            if (currentClass != jClass || !currentMethod.classMember.Name() .equals("<clinit>")) {
                 ExceptionUtils.throwException("java.lang.IllegalAccessError");
             }
         }

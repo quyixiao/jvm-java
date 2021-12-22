@@ -10,6 +10,7 @@ public class JObject {
 
     public JObject(JClass jClass) {
         this.jClass = jClass;
+        this.data = new Slots(this.jClass.instanceSlotCount);
     }
 
     public JObject(JClass jClass, Object data, Object extra) {

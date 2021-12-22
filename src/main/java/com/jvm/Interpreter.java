@@ -35,10 +35,9 @@ public class Interpreter {
             reader.Reset(frame.Method().Code(), pc);
             int opcode = reader.ReadUint8().Value();
             Instruction inst = Factory.NewInstruction(opcode);
-            System.out.println(inst);
             inst.FetchOperands(reader);
             frame.SetNextPC(reader.PC());
-            if(logInst ){
+            if(true ){
                 logInstruction(frame ,inst);
             }
             // execute
@@ -55,7 +54,7 @@ public class Interpreter {
         String className = method.classMember.Class().Name();
         String methodName = method.classMember.Name();
         int pc = frame.Thread().PC();
-        log.info("%{}.%{}() {}  %{} %{}", className, methodName, pc, inst, inst);
+        System.out.println(className + " " + methodName + " " + pc + " " +inst);
     }
 
     public static void logFrames(JThread thread) {

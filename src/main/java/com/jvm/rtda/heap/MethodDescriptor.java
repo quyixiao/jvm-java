@@ -5,13 +5,10 @@ import java.util.List;
 
 public class MethodDescriptor {
 
-    public List<String> parameterTypes;
+    public List<String> parameterTypes  = new ArrayList<>();;
     public String returnType;
 
     public void addParameterType(String t) {
-        if (this.parameterTypes == null) {
-            this.parameterTypes = new ArrayList<>();
-        }
         this.parameterTypes.add(t);
     }
 

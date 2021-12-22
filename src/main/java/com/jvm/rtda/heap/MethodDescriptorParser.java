@@ -113,7 +113,7 @@ public class MethodDescriptorParser {
 
     public String parseObjectType() {
         String unread = this.raw.substring(this.offset);
-        int semicolonIndex = unread.indexOf(unread, ';');
+        int semicolonIndex = unread.indexOf(";");
         if (semicolonIndex == -1) {
             this.causePanic();
             return "";

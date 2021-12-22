@@ -42,7 +42,7 @@ public class JField {
     }
 
     public boolean isLongOrDouble() {
-        return this.classMember.descriptor == "J" || this.classMember.descriptor == "D";
+        return this.classMember.descriptor .equals("J") || this.classMember.descriptor.equals( "D");
     }
 
 

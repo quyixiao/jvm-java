@@ -29,7 +29,6 @@ public class INVOKE_STATIC extends Index16Instruction {
             ClassInitLogic.InitClass(frame.Thread(), jClass);
             return;
         }
-
         MethodInvokeLogic.InvokeMethod(frame, resolvedMethod);
     }
 }
