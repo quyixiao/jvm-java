@@ -22,8 +22,7 @@ public class Main {
         cmd.setCpOption("/Users/quyixiao/gitlab/jvm-java/target/test-classes/com/test/ch06");
         cmd.setXjreOption("/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre");
         cmd.setJclass("MyObject");
-        startJVM(cmd);
-
+        new JVM(cmd).start();
     }
 
     public static void startJVM(Cmd cmd) {
@@ -34,7 +33,7 @@ public class Main {
         JClass mainClass = classLoader.LoadClass(cmd.getJclass());
         JMethod mainMethod = mainClass.GetMainMethod();
         if (mainMethod != null) {
-            Interpreter.interpret(mainMethod);
+            //Interpreter.interpret(mainMethod,fa);
         }
     }
 

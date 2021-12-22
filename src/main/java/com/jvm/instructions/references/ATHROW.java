@@ -63,12 +63,13 @@ public class ATHROW extends NoOperandsInstruction {
         String goMsg=StringPool.GoString(jMsg);
         log.info(ex.Class().JavaName() + ": " + goMsg);
         Object stes=ex.Extra();
-        for i := 0; i < stes.Len(); i++ {
+        //todo
+       /* for (int i = 0; i < stes.Len(); i++)  {
             ste := stes.Index(i).Interface().(interface {
                 String() string
             })
             println("\tat " + ste.String())
-        }
+        }*/
     }
 
 }

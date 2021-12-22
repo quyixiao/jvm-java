@@ -139,4 +139,19 @@ public class ClassFile {
     public MemberInfo[] Methods() {
         return this.methods;
     }
+
+
+
+
+
+
+   public SourceFileAttribute  SourceFileAttribute() {
+        for  (AttributeInfo attrInfo :this.attributes ){
+            if(attrInfo instanceof SourceFileAttribute ){
+                return (SourceFileAttribute) attrInfo;
+            }
+        }
+        return null;
+    }
+
 }

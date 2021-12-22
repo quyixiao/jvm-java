@@ -2,6 +2,7 @@ package com.jvm.rtda.heap;
 
 import com.jvm.classfile.ClassFile;
 import com.jvm.classfile.MemberInfo;
+import com.jvm.classfile.SourceFileAttribute;
 import com.jvm.data.Uint16;
 import com.jvm.utils.ExceptionUtils;
 import com.jvm.utils.StringUtils;
@@ -40,6 +41,7 @@ public class JClass {
         this.constantPool = new JConstantPool(this, cf.constantPool);
         this.fields = newFields(this, cf.fields);
         this.methods = newMethods(this, cf.methods);
+        this.sourceFile = getSourceFile(cf)	;	//从class文件中读取源文件名
     }
 
     //修改newFields()方法，从字段属性表中读取constValueIndex， 代码改动如下:
@@ -71,6 +73,16 @@ public class JClass {
     }
 
 
+
+    //源文件名在ClassFile结构的属性表中， getSourceFile()函数提取这个信息
+//【注意】并不是每个class文件中都有源文件信息，这个因编译时 的编译器选项而异。
+    public String  getSourceFile(ClassFile cf ) {
+        SourceFileAttribute sfAttr = cf.SourceFileAttribute();
+        if ( sfAttr != null) {
+            return sfAttr.FileName();
+        }
+        return "Unknown" ;// todo
+    }
     public boolean IsPublic() {
         return 0 != (this.accessFlags.Value() & Constants.ACC_PUBLIC);
     }
