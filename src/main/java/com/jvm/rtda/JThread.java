@@ -70,16 +70,9 @@ public class JThread {
         ) ;
     }
 
-
-
     public Frame NewFrame(JMethod method)  {
         return newFrame(this, method);
     }
-
-
-
-
-
 
     public Frame TopFrame() {
         return this.stack.top();
@@ -87,6 +80,15 @@ public class JThread {
 
     public boolean IsStackEmpty()  {
         return this.stack.isEmpty();
+    }
+
+    public void  ClearStack() {
+        //它调用了Stack结构体的clear()方法
+        this.stack.clear();
+    }
+
+    public Frame [] GetFrames() {
+        return this.stack.getFrames();
     }
 
 

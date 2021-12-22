@@ -3,7 +3,7 @@ package com.jvm.rtda.heap;
 import com.jvm.rtda.Slot;
 import com.jvm.utils.ByteUtil;
 
-public class Slots {
+public class Slots  {
     public Slot[] slots;
 
     public Slots(int slotCount) {

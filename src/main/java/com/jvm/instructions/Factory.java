@@ -20,7 +20,7 @@ import com.jvm.instructions.constants.nop.NOP;
 import com.jvm.instructions.control.GOTO;
 import com.jvm.instructions.control.LOOKUP_SWITCH;
 import com.jvm.instructions.control.TABLE_SWITCH;
-import com.jvm.instructions.control.returnx.RETURN;
+import com.jvm.instructions.control.returnx.*;
 import com.jvm.instructions.conversions.d2x.D2F;
 import com.jvm.instructions.conversions.d2x.D2I;
 import com.jvm.instructions.conversions.d2x.D2L;
@@ -32,6 +32,7 @@ import com.jvm.instructions.conversions.l2x.L2D;
 import com.jvm.instructions.conversions.l2x.L2F;
 import com.jvm.instructions.conversions.l2x.L2I;
 import com.jvm.instructions.extended.GOTO_W;
+import com.jvm.instructions.extended.WIDE;
 import com.jvm.instructions.extended.ifnull.IFNONNULL;
 import com.jvm.instructions.extended.ifnull.IFNULL;
 import com.jvm.instructions.loads.aload.*;
@@ -73,6 +74,11 @@ import com.jvm.instructions.math.sub.LSUB;
 import com.jvm.instructions.math.xor.IXOR;
 import com.jvm.instructions.math.xor.LXOR;
 import com.jvm.instructions.references.*;
+import com.jvm.instructions.references.array.ANEW_ARRAY;
+import com.jvm.instructions.references.array.ARRAY_LENGTH;
+import com.jvm.instructions.references.array.MULTI_ANEW_ARRAY;
+import com.jvm.instructions.references.array.NEW_ARRAY;
+import com.jvm.instructions.reserved.INVOKE_NATIVE;
 import com.jvm.instructions.stack.dup.*;
 import com.jvm.instructions.stack.pop.POP;
 import com.jvm.instructions.stack.pop.POP2;
@@ -445,16 +451,16 @@ public class Factory {
                 return new TABLE_SWITCH();
             case 0xab:
                 return new LOOKUP_SWITCH();
-            //case 0xac:
-            //     return new IRETURN();
-            //case 0xad:
-            //    return lreturn
-            //case 0xae:
-            //    return freturn
-            //case 0xaf:
-            //    return dreturn
-            //case 0xb0:
-            //    return areturn
+            case 0xac:
+                 return new IRETURN();
+            case 0xad:
+                return new LRETURN();
+            case 0xae:
+                return new FRETURN();
+            case 0xaf:
+                return new DRETURN();
+            case 0xb0:
+                return new ARETURN();
             case 0xb1:
                 return new RETURN();
             case 0xb2:
@@ -470,40 +476,34 @@ public class Factory {
                 return new INVOKE_VIRTUAL();
             case 0xb7:
                 return new INVOKE_SPECIAL();
-            //case 0xb8:
-            //    return &INVOKE_STATIC {
-            //}
-            //case 0xb9:
-            //    return &INVOKE_INTERFACE {
-            //}
-            // case 0xba:
-            // 	return &INVOKE_DYNAMIC{}
+            case 0xb8:
+                return new INVOKE_STATIC ();
+            case 0xb9:
+                return new INVOKE_INTERFACE();
+          //   case 0xba:
+//             	return &INVOKE_DYNAMIC{}
             case 0xbb: //
                 return new NEW();
-            //case 0xbc:
-            //    return &NEW_ARRAY {
-            //}
-            //case 0xbd:
-            //    return &ANEW_ARRAY {
-            //}
-            //case 0xbe:
-            //    return arraylength
-            //case 0xbf:
-            //    return athrow            //
+            case 0xbc:
+                return new NEW_ARRAY();
+            case 0xbd:
+                return new ANEW_ARRAY();
+            case 0xbe:
+                return new ARRAY_LENGTH();
+            case 0xbf:
+                return new ATHROW();            //
             case 0xc0:
                 return new CHECK_CAST();
             case 0xc1:
                 return new INSTANCE_OF();
-            //case 0xc2:
-            //    return monitorenter
-            //case 0xc3:
-            //    return monitorexit
-            //case 0xc4:
-            //    return &WIDE {
-            //}
-            //case 0xc5:
-            //    return &MULTI_ANEW_ARRAY {
-            //}
+            case 0xc2:
+                return new MONITOR_ENTER();
+            case 0xc3:
+                return new MONITOR_EXIT();
+            case 0xc4:
+                return new WIDE ();
+            case 0xc5:
+                return new MULTI_ANEW_ARRAY();
             case 0xc6:
                 return new IFNULL();
             case 0xc7:
@@ -514,8 +514,8 @@ public class Factory {
             // case 0xc9:
             // 	return &JSR_W{}
             // case 0xca: breakpoint
-            // case 0xfe:
-            //   return invoke_native
+             case 0xfe:
+               return new INVOKE_NATIVE();
             // case 0xff: impdep2
             default:
                 log.info("-------------------openCode = " + opcode);

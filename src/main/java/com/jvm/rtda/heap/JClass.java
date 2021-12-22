@@ -24,7 +24,13 @@ public class JClass {
     public int staticSlotCount;
     public Slots staticVars;
     public boolean initStarted;        //为了判断类是否已经初始化，需要给Class结构体添加一个字段
+    public  JObject             jObject;       //通过jClass字段，每个Class结构体实例都与一个类对象关联。
+    public  String sourceFile        ;							//最后实现Class结构体的SourceFile()方法和Method结构体的 GetLineNumber()
 
+
+    public JClass(String name) {
+        this.name = name;
+    }
 
     public JClass(ClassFile cf) {
         this.accessFlags = cf.AccessFlags();
@@ -374,6 +380,9 @@ public class JClass {
         }
     }
 
+    public JObject JObject() {
+        return this.jObject;
+    }
 
     public JMethod GetConstructor(String descriptor) {
         return this.GetInstanceMethod("<init>", descriptor);
@@ -447,7 +456,7 @@ public class JClass {
         }
     }
 
-    public JObject NewByteArray(JClassLoader loader,byte  bytes []) {
+    public static JObject NewByteArray(JClassLoader loader,byte  bytes []) {
         return new JObject(loader.LoadClass("[B"), bytes, null);
     }
 
@@ -499,11 +508,27 @@ public class JClass {
         }
     }
 
-
+    public JClassLoader Loader()  {
+        return this.loader;
+    }
 
     // iface extends self
     public boolean isSuperInterfaceOf(JClass iface) {
         return iface.isSubInterfaceOf(this);
+    }
+
+
+    // getters
+    public Uint16 AccessFlags() {
+        return this.accessFlags;
+    }
+
+    public JClass [] Interfaces() {
+        return this.interfaces;
+    }
+
+    public String  SourceFile() {
+        return this.sourceFile;
     }
 
 }

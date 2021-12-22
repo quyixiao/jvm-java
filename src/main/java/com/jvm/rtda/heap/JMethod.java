@@ -28,6 +28,12 @@ public class JMethod {
         }
     }
 
+
+    public JMethod(ClassMember classMember, byte[] code) {
+        this.classMember = classMember;
+        this.code = code;
+    }
+
     public void copyAttributes(MemberInfo cfMethod) {
         CodeAttribute codeAttr = cfMethod.CodeAttribute();
         if (codeAttr != null) {

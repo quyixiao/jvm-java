@@ -10,6 +10,9 @@ public class ClassMember {
     public String descriptor;
     public JClass jClass;                    //class字段存放 Class结构体指针，这样可以通过字段或方法访问到它所属的类。
 
+    public  String signature      ;
+    public  byte [] annotationData ;// RuntimeVisibleAnnotations_attribute
+
     //copyMemberInfo()方法从class文件中复制数据
     public void copyMemberInfo(MemberInfo memberInfo) {
         this.accessFlags = memberInfo.AccessFlags();
@@ -17,6 +20,15 @@ public class ClassMember {
         this.descriptor = memberInfo.Descriptor();
     }
 
+
+    public ClassMember() {
+    }
+
+    public ClassMember(Uint16 accessFlags, String name, JClass jClass) {
+        this.accessFlags = accessFlags;
+        this.name = name;
+        this.jClass = jClass;
+    }
 
     public boolean IsPublic() {
         return 0 != (this.accessFlags.Value() & Constants.ACC_PUBLIC);
@@ -43,6 +55,11 @@ public class ClassMember {
     }
 
     // getters
+    public Uint16 AccessFlags()  {
+        return this.accessFlags;
+    }
+
+    // getters
     public String Name() {
         return this.name;
     }
@@ -50,6 +67,15 @@ public class ClassMember {
     public String Descriptor() {
         return this.descriptor;
     }
+
+
+    public  String   Signature()  {
+        return this.signature;
+    }
+   public byte []  AnnotationData() {
+        return this.annotationData;
+    }
+
 
     public JClass Class() {
         return this.jClass;

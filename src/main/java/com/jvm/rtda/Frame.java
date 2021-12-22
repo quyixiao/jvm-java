@@ -1,6 +1,7 @@
 package com.jvm.rtda;
 
 import com.jvm.rtda.heap.JMethod;
+import com.jvm.rtda.heap.JObject;
 import lombok.Data;
 
 @Data
@@ -28,12 +29,20 @@ public class Frame {
     }
 
 
-    public Frame(JThread thread, JMethod method, LocalVars localVars, OperandStack operandStack) {
-        this.localVars = localVars;
+    public Frame(JThread thread, JMethod method, OperandStack operandStack) {
         this.operandStack = operandStack;
         this.thread = thread;
         this.method = method;
     }
+
+
+    public Frame(JThread thread,JMethod jMethod, LocalVars localVars, OperandStack operandStack) {
+        this.localVars = localVars;
+        this.method = jMethod;
+        this.operandStack = operandStack;
+        this.thread = thread;
+    }
+
 
 
     // getters
@@ -62,8 +71,6 @@ public class Frame {
     public JMethod Method() {
         return this.method;
     }
-
-
 
     public void  RevertNextPC() {
         this.nextPC = this.thread.pc;

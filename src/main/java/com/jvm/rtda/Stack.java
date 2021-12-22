@@ -3,6 +3,9 @@ package com.jvm.rtda;
 import com.jvm.utils.ExceptionUtils;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public class Stack {
 
@@ -34,15 +37,14 @@ public class Stack {
     }
 
 
-
     //如果此时栈是空的，肯定是我们的虚拟机有bug，调用panic() 函数终止程序执行即可
 //top()方法只是返回栈顶帧，但并不弹出
-    public Frame pop()  {
+    public Frame pop() {
         if (this._top == null) {
             ExceptionUtils.throwException(" jvm stack is empty!");
         }
 
-        Frame top= this._top;
+        Frame top = this._top;
         this._top = top.lower;
         top.lower = null;
         this.size--;
@@ -57,12 +59,32 @@ public class Stack {
         return this._top;
     }
 
-
-
-
-
     public boolean isEmpty() {
         return this._top == null;
     }
+
+    public void clear() {
+        while (!this.isEmpty()) {
+            this.pop();
+        }
+    }
+
+
+    public Frame[] getFrames() {
+        List<Frame> frames = new ArrayList<>();
+        Frame frame = this._top;
+        if (frame != null) {
+            frames.add(frame);
+            while (true) {
+                frame = frame.lower;
+                if (frame == null) {
+                    break;
+                }
+                frames.add(frame);
+            }
+        }
+        return frames.toArray(new Frame[frames.size()]);
+    }
+
 
 }

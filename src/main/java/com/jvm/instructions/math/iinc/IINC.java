@@ -1,12 +1,13 @@
 package com.jvm.instructions.math.iinc;
 
 import com.jvm.instructions.base.BytecodeReader;
+import com.jvm.instructions.base.Index8Instruction;
 import com.jvm.instructions.base.Instruction;
 import com.jvm.rtda.Frame;
 import com.jvm.rtda.LocalVars;
 
 // Increment local variable by constant
-public class IINC implements Instruction {
+public class IINC extends Index8Instruction {
 
     public int Index;
     public int Const;

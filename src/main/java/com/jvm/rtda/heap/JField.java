@@ -4,11 +4,9 @@ import com.jvm.classfile.ConstantValueAttribute;
 import com.jvm.classfile.MemberInfo;
 
 public class JField {
-
     public ClassMember classMember;
     public int constValueIndex;
     public int slotId;
-
 
     public JField() {
         if (this.classMember == null){
@@ -22,7 +20,6 @@ public class JField {
             this.constValueIndex = valAttr.ConstantValueIndex().Value();
         }
     }
-
 
     public boolean IsVolatile() {
         return 0 != (this.classMember.accessFlags.Value() & Constants.ACC_VOLATILE);
@@ -49,4 +46,9 @@ public class JField {
     }
 
 
+    // reflection
+    public JClass Type(){
+        String className = ClassNameHelper.toClassName(this.classMember.descriptor);
+        return this.classMember.jClass.loader.LoadClass(className);
+    }
 }

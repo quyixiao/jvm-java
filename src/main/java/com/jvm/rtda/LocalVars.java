@@ -38,7 +38,7 @@ public class LocalVars {
     // long consumes two slots
     public void SetLong(Integer index, Long val) {
         initSlot(index);
-        initSlot(index + 1 );
+        initSlot(index + 1);
         byte[] longByte = ByteUtil.getBytes(val);
         byte[] a = new byte[4];
         byte[] b = new byte[4];
@@ -86,9 +86,17 @@ public class LocalVars {
     }
 
 
-    public void  SetSlot(int index ,  Slot slot) {
+    public void SetSlot(int index, Slot slot) {
         this.slots[index] = slot;
     }
 
+
+    public JObject GetThis() {
+        return this.GetRef(0);
+    }
+
+    public boolean GetBoolean(int index) {
+        return this.GetInt(index) == 1;
+    }
 
 }
