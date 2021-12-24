@@ -29,7 +29,7 @@ public class Main {
         Classpath classpath = new Classpath(cmd.getXjreOption(), cmd.getCpOption());
         byte[] data = classpath.readClass(cmd.getJclass());
         System.out.println(Arrays.toString(data));
-        JClassLoader classLoader =  new JClassLoader(classpath );
+        JClassLoader classLoader =  new JClassLoader(classpath ,true);
         JClass mainClass = classLoader.LoadClass(cmd.getJclass());
         JMethod mainMethod = mainClass.GetMainMethod();
         if (mainMethod != null) {

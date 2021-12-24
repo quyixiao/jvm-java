@@ -80,4 +80,42 @@ public class MemberInfo {
     }
 
 
+    public byte[] RuntimeVisibleAnnotationsAttributeData() {
+        return this.getUnparsedAttributeData("RuntimeVisibleAnnotations");
+    }
+
+    public byte[] RuntimeVisibleParameterAnnotationsAttributeData() {
+        return this.getUnparsedAttributeData("RuntimeVisibleParameterAnnotationsAttribute");
+    }
+
+    // AnnotationDefault 属性是个长度可变的属性，它出现在某些method_info结构体的属性表里，而那种method_info结构体，
+// 则用来表示注解类型中的元素，AnnotationDefault属性记录了由method_info结构所表示的那个元素的默认值，Java虚拟机默认值
+// 可供取用，以便合适的反射API能够将其提供给调用者。
+    public byte[] AnnotationDefaultAttributeData() {
+        return this.getUnparsedAttributeData("AnnotationDefault");
+    }
+
+    public byte[] getUnparsedAttributeData(String name) {
+        for (AttributeInfo attrInfo : this.attributes) {
+            if (attrInfo instanceof UnparsedAttribute) {
+                UnparsedAttribute unparsedAttr = (UnparsedAttribute) attrInfo;
+                if (unparsedAttr.equals(name)) {
+                    return unparsedAttr.info;
+                }
+            }
+        }
+        return null;
+    }
+
+
+
+    public ExceptionsAttribute ExceptionsAttribute() {
+        for  (AttributeInfo  attrInfo : this.attributes){
+            if(attrInfo instanceof  ExceptionsAttribute){
+                return (ExceptionsAttribute) attrInfo;
+            }
+        }
+        return null;
+    }
+
 }

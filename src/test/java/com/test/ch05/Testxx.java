@@ -1,10 +1,17 @@
 package com.test.ch05;
 
+import java.util.Properties;
+
 public class Testxx {
 
     public static void main(String[] args) {
-        int b = 65523;
-        short a = (short)b;
-        System.out.println(a);
+       User user = new User();
+       user.userLog = new UserLog();
+
+       UserLog b = user.userLog;
+        System.out.println(b);
+        user.userLog = null;
+        System.out.println(b );
+
     }
 }

@@ -2,8 +2,10 @@ package com.jvm.instructions.base;
 
 import com.jvm.rtda.Frame;
 import com.jvm.rtda.OperandStack;
+import com.jvm.rtda.heap.ClassRef;
 import com.jvm.rtda.heap.JClass;
 import com.jvm.rtda.heap.JObject;
+import com.jvm.rtda.heap.StringPool;
 import com.jvm.utils.ExceptionUtils;
 
 public abstract class AbstractInstruction {
@@ -71,14 +73,20 @@ public abstract class AbstractInstruction {
 
     public void _ldc(Frame frame, int index) {
         OperandStack stack = frame.OperandStack();
-        JClass jClass = frame.Method().classMember.Class();
-        Object c = jClass.ConstantPool().GetConstant(index);
-
-        if (c instanceof Integer ) {
-            stack.PushInt((int) c);
-        } else if (c instanceof Float ) {
-            stack.PushFloat((Float) c);
-        } else {
+        JClass clazz = frame.Method().classMember.Class();
+        Object c = clazz.ConstantPool().GetConstant(index);
+        if( c instanceof  Integer) {
+            stack.PushInt((Integer) c);
+        }else if (c instanceof  Float){
+            stack.PushFloat((Float)c);
+        }else if (c instanceof  String ){
+            JObject internedStr = StringPool.JString(clazz.Loader(), (String)c);
+            stack.PushRef(internedStr);
+        }else if (c instanceof ClassRef){
+            ClassRef classRef =(ClassRef) c;
+            JObject classObj = classRef.symRef.ResolvedClass().JObject();
+            stack.PushRef(classObj);
+        }else {
             ExceptionUtils.throwException("todo: ldc!");
         }
     }

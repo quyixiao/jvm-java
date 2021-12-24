@@ -8,7 +8,7 @@ import lombok.Data;
 public class Slot  implements Cloneable{
 
 
-    public Integer num;
+    public int num;
 
     public JObject ref;
 

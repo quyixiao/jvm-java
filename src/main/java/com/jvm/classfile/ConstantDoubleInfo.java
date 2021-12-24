@@ -20,7 +20,11 @@ public class ConstantDoubleInfo implements ConstantInfo {
     @Override
     public void readInfo(ClassReader reader) {
         byte bytes[] = reader.readBytes(8);
-        this.val = ByteUtil.getDouble(bytes);
+        byte byte2[] = new byte[8];
+        for(int i = 0 ;i < 8 ;i ++){
+            byte2[i] = bytes[7-i];
+        }
+        this.val = ByteUtil.getDouble(byte2);
     }
 
 

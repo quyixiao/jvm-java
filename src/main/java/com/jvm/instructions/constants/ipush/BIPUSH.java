@@ -7,7 +7,7 @@ import lombok.val;
 
 // Push byte
 public class BIPUSH  implements Instruction {
-    public  Integer val ;
+    public  int val ;
 
 
     @Override
@@ -18,5 +18,12 @@ public class BIPUSH  implements Instruction {
     @Override
     public void Execute(Frame frame) {
         frame.OperandStack().PushInt(this.val);
+    }
+
+    @Override
+    public String toString() {
+        return "BIPUSH{" +
+                "val=" + val +
+                '}';
     }
 }

@@ -19,8 +19,9 @@ public class DUP extends NoOperandsInstruction {
     public void Execute(Frame frame) {
         OperandStack stack = frame.OperandStack();
         Slot slot = stack.PopSlot();
-        stack.PushSlot(slot);
         Slot slot1 = slot.clone();
+
+        stack.PushSlot(slot);
         stack.PushSlot(slot1);
     }
 }

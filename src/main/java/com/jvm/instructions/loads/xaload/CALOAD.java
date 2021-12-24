@@ -1,6 +1,7 @@
 package com.jvm.instructions.loads.xaload;
 
 
+import com.jvm.data.Uint16;
 import com.jvm.instructions.base.NoOperandsInstruction;
 import com.jvm.rtda.Frame;
 import com.jvm.rtda.OperandStack;
@@ -20,6 +21,6 @@ public class CALOAD extends NoOperandsInstruction {
         checkNotNil(arrRef);
         char chars[] = arrRef.Chars();
         checkIndex(chars.length, index);
-        stack.PushInt((int) (chars[index]));
+        stack.PushInt(chars[index]);
     }
 }

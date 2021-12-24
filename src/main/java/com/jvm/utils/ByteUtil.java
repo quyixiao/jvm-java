@@ -3,6 +3,7 @@ package com.jvm.utils;
 
 
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 public class ByteUtil
 {
@@ -171,5 +172,11 @@ public class ByteUtil
         return Float.intBitsToFloat(l);
     }
 
+
+    public static void main(String[] args) {
+        byte [] b = getBytes(1000l);
+        System.out.println(Arrays.toString(b));
+        System.out.println(ByteUtil.getLong(b));
+    }
 
 }

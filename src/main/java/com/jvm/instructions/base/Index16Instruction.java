@@ -14,4 +14,10 @@ public abstract class Index16Instruction extends AbstractInstruction implements 
     }
 
 
+    @Override
+    public String toString() {
+        return  this.getClass().getSimpleName() + " {" +
+                "Index=" + Index +
+                '}';
+    }
 }

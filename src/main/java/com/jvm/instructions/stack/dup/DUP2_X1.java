@@ -23,8 +23,13 @@ public class DUP2_X1 extends NoOperandsInstruction {
         Slot slot1 = stack.PopSlot();
         Slot slot2 = stack.PopSlot();
         Slot slot3 = stack.PopSlot();
-        stack.PushSlot(slot2);
-        stack.PushSlot(slot1);
+
+        Slot slot11 = slot1.clone();
+        Slot slot22 = slot2.clone();
+
+
+        stack.PushSlot(slot22);
+        stack.PushSlot(slot11);
         stack.PushSlot(slot3);
         stack.PushSlot(slot2);
         stack.PushSlot(slot1);

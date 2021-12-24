@@ -50,6 +50,11 @@ public abstract class NoOperandsInstruction extends AbstractInstruction implemen
 
 
 
+    @Override
+    public String toString() {
+        return  this.getClass().getSimpleName() + " {} " ;
+    }
+
 }
 
 

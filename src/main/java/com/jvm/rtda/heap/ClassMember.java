@@ -91,10 +91,10 @@ public class ClassMember {
 
         if (this.IsProtected()) {
             return d == c || d.isSubClassOf(c) ||
-                    c.getPackageName() == d.getPackageName();
+                    c.getPackageName().equals( d.getPackageName()) ;
         }
         if (!this.IsPrivate()) {
-            return c.getPackageName() == d.getPackageName();
+            return c.getPackageName() .equals(d.getPackageName());
         }
         return d == c;
     }

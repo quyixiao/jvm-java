@@ -29,5 +29,10 @@ public abstract class BranchInstruction implements Instruction {
         return new Tuple2<>(val1,val2);
     }
 
-
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + " {" +
+                "Offset=" + Offset +
+                '}';
+    }
 }

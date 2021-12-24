@@ -21,7 +21,7 @@ public class JVM {
     public JVM(Cmd cmd) {
         Classpath cp = new Classpath(cmd.getXjreOption(), cmd.getCpOption());
         this.cmd = cmd;
-        this.classLoader = new JClassLoader(cp);
+        this.classLoader = new JClassLoader(cp,cmd.verboseInstFlag);
         this.mainThread = new JThread();
     }
 

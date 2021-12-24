@@ -75,7 +75,7 @@ public class ClassNameHelper {
         for (Map.Entry<String, String> map : primitiveTypes.entrySet()) {
             String className = map.getKey();
             String d = map.getValue();
-            if (d == descriptor) {
+            if (d.equals(descriptor) ){
                 // primitive
                 return className;
             }

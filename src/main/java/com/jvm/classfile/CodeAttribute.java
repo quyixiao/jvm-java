@@ -90,4 +90,13 @@ public class CodeAttribute implements ConstantInfo, AttributeInfo {
         return this.exceptionTable;
     }
 
+
+    public LineNumberTableAttribute LineNumberTableAttribute() {
+        for (AttributeInfo attrInfo : this.attributes) {
+            if (attrInfo instanceof LineNumberTableAttribute) {
+                return (LineNumberTableAttribute) attrInfo;
+            }
+        }
+        return null;
+    }
 }

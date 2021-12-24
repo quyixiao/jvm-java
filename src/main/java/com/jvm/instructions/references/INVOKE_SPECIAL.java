@@ -9,15 +9,20 @@ import com.jvm.utils.ExceptionUtils;
 // Invoke instance method;
 // special handling for superclass, private, and instance initialization method invocations
 public class INVOKE_SPECIAL  extends Index16Instruction {
+    public  static  int a = 0;
     @Override
     public void Execute(Frame frame) {
 
+        a ++;
+        if(a == 15 ){
+            System.out.println("------------------");
+        }
       JClass  currentClass = frame.Method().classMember.Class();
         JConstantPool cp = currentClass.ConstantPool();
         MethodRef methodRef = (MethodRef ) cp.GetConstant(this.Index);
         JClass resolvedClass = methodRef.memberRef.symRef.ResolvedClass();
         JMethod resolvedMethod = methodRef.ResolvedMethod();
-        if (resolvedMethod.classMember.Name() == "<init>" && resolvedMethod.classMember.Class() != resolvedClass) {
+        if (resolvedMethod.classMember.Name().equals("<init>") && resolvedMethod.classMember.Class() != resolvedClass) {
             ExceptionUtils.throwException("java.lang.NoSuchMethodError");
         }
         if( resolvedMethod.classMember.IsStatic() ){
@@ -31,7 +36,7 @@ public class INVOKE_SPECIAL  extends Index16Instruction {
 
         if( resolvedMethod.classMember.IsProtected() &&
                 resolvedMethod.classMember.Class().IsSuperClassOf(currentClass) &&
-                resolvedMethod.classMember.Class().GetPackageName() != currentClass.GetPackageName() &&
+                !resolvedMethod.classMember.Class().GetPackageName().equals(currentClass.GetPackageName()) &&
                 ref.Class() != currentClass &&
                 !ref.Class().IsSubClassOf(currentClass) ){
 

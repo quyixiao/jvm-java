@@ -2,15 +2,15 @@ package com.jvm.rtda;
 
 import com.jvm.rtda.heap.JObject;
 import com.jvm.utils.ByteUtil;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
 import lombok.Data;
-import lombok.val;
 
 @Data
 public class OperandStack {
-    public Integer size = 0;
+    public int size ;
     public Slot[] slots;
 
+    public OperandStack() {
+    }
 
     // 操作数栈的大小是编译器已经确定的，所以可以用[]Slot实现。 size字段用于记录栈顶位置
     public OperandStack(Integer maxStack) {
@@ -20,7 +20,7 @@ public class OperandStack {
 
     //和局部变量表类似，需 要定义一些方法从操作数栈中弹出，或者往其中推入各种类型的变量
     //PushInt()方法往栈顶放一个int变量，然后把size加1。PopInt() 方法则恰好相反，先把size减1，然后返回变量值
-    public void PushInt(Integer val) {
+    public void PushInt(int val) {
         initSlot(this.size);
         this.slots[this.size].num = val;
         this.size++;
@@ -99,7 +99,6 @@ public class OperandStack {
         return ByteUtil.getDouble(bits);
     }
 
-
     public void PushRef(JObject ref) {
         initSlot(this.size);
         this.slots[this.size].ref = ref;
@@ -113,7 +112,6 @@ public class OperandStack {
         this.slots[this.size].ref = null;
         return ref;
     }
-
 
     public void PushSlot(Slot slot) {
         this.slots[this.size] = slot;
@@ -165,5 +163,12 @@ public class OperandStack {
         return new OperandStack(maxStack);
     }
 
+
+    public static void main(String[] args) {
+        OperandStack operandStack = new OperandStack(100);
+        int a = Integer.MAX_VALUE - 8;
+        operandStack.PushFloat( (float) a);
+        System.out.println(operandStack.PopFloat());
+    }
 
 }

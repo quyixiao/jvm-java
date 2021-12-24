@@ -1,8 +1,9 @@
 package com.jvm.rtda.heap;
 
+import com.jvm.data.Uint16;
 import com.jvm.utils.ExceptionUtils;
 
-public class JObject {
+public class JObject  {
     public JClass jClass;    //一个存放对象的Class指针
     public Object data; // Slots for Object, []int32 for int[] ...
     public Object extra;       //extra字段用来记录Object结构体实例的额外信息
@@ -10,12 +11,18 @@ public class JObject {
 
     public JObject(JClass jClass) {
         this.jClass = jClass;
+        if(jClass.name .equals("[Ljava/util/Hashtable$Entry;")){
+            System.out.println("-----------------");
+        }
         this.data = new Slots(this.jClass.instanceSlotCount);
     }
 
     public JObject(JClass jClass, Object data, Object extra) {
         this.jClass = jClass;
         this.data = data;
+        if(jClass.name .equals("[Ljava/util/Hashtable$Entry;")){
+            System.out.println("-----------------");
+        }
         this.extra = extra;
     }
 
@@ -87,7 +94,7 @@ public class JObject {
         return (long[]) this.data;
     }
 
-    public char[] Chars() {
+    public char [] Chars() {
         return (char[]) this.data;
     }
 
@@ -113,6 +120,8 @@ public class JObject {
             return ((char[]) this.data).length;
         } else if (this.data instanceof int[]) {
             return ((int[]) this.data).length;
+        } else if (this.data instanceof Uint16[]) {
+            return ((char[]) this.data).length;
         } else if (this.data instanceof float[]) {
             return ((float[]) this.data).length;
         } else if (this.data instanceof long[]) {
@@ -128,63 +137,64 @@ public class JObject {
     }
 
 
-
-    public JObject  Clone()  {
+    public JObject Clone() {
         return new JObject(
-            this.jClass,
-                     this.cloneData() ,null);
+                this.jClass,
+                this.cloneData(), null);
     }
 
     public Object cloneData() {
-        if(this.data instanceof byte [] ){
-            byte [] elements = (byte [] )this.data;
-            byte elements2 [] = new byte[elements.length];
-            System.arraycopy(elements , 0 , elements2, 0 , elements.length);
+        if (this.data instanceof byte[]) {
+            byte[] elements = (byte[]) this.data;
+            byte elements2[] = new byte[elements.length];
+            System.arraycopy(elements, 0, elements2, 0, elements.length);
             return elements2;
-        }else if (this.data instanceof  short [] ) {
-            short [] elements = (short[])this.data;
-            short [] elements2 = new short[elements.length];
-            System.arraycopy(elements , 0 , elements2, 0 , elements.length);
+        } else if (this.data instanceof short[]) {
+            short[] elements = (short[]) this.data;
+            short[] elements2 = new short[elements.length];
+            System.arraycopy(elements, 0, elements2, 0, elements.length);
             return elements2;
-        }else if ( this.data instanceof  char []) {
-           char []  elements = (char [] )this.data;
-            char [] elements2 = new char[elements.length];
-            System.arraycopy(elements , 0 , elements2, 0 , elements.length);
+        } else if (this.data instanceof char[]) {
+            char[] elements = (char[]) this.data;
+            char[] elements2 = new char[elements.length];
+            System.arraycopy(elements, 0, elements2, 0, elements.length);
             return elements2;
-        }else if (this.data instanceof  int[]) {
-            int []  elements = (int [] )this.data;
-            int [] elements2 = new int[elements.length];
-            System.arraycopy(elements , 0 , elements2, 0 , elements.length);
+        } else if (this.data instanceof int[]) {
+            int[] elements = (int[]) this.data;
+            int[] elements2 = new int[elements.length];
+            System.arraycopy(elements, 0, elements2, 0, elements.length);
             return elements2;
-        }else if (this.data instanceof  long []) {
-            long []  elements = (long [] )this.data;
-            long [] elements2 = new long[elements.length];
-            System.arraycopy(elements , 0 , elements2, 0 , elements.length);
+        } else if (this.data instanceof long[]) {
+            long[] elements = (long[]) this.data;
+            long[] elements2 = new long[elements.length];
+            System.arraycopy(elements, 0, elements2, 0, elements.length);
             return elements2;
-        }else if (this.data instanceof  float[]) {
-            float []  elements = (float [] )this.data;
-            float [] elements2 = new float[elements.length];
-            System.arraycopy(elements , 0 , elements2, 0 , elements.length);
+        } else if (this.data instanceof float[]) {
+            float[] elements = (float[]) this.data;
+            float[] elements2 = new float[elements.length];
+            System.arraycopy(elements, 0, elements2, 0, elements.length);
             return elements2;
-        }else if (this.data instanceof  double[]) {
-            double []  elements = (double [] )this.data;
-            double [] elements2 = new double[elements.length];
-            System.arraycopy(elements , 0 , elements2, 0 , elements.length);
+        } else if (this.data instanceof double[]) {
+            double[] elements = (double[]) this.data;
+            double[] elements2 = new double[elements.length];
+            System.arraycopy(elements, 0, elements2, 0, elements.length);
             return elements2;
-        }else if (this.data instanceof  JObject[]) {
-            JObject []  elements = (JObject [] )this.data;
-            JObject [] elements2 = new JObject[elements.length];
+        } else if (this.data instanceof JObject[]) {
+            JObject[] elements = (JObject[]) this.data;
+            JObject[] elements2 = new JObject[elements.length];
             System.arraycopy(elements, 0, elements2, 0, elements.length);
             return elements2;
         } else {// []Slot
             Slots slots = (Slots) this.data;
             Slots slots2 = new Slots(slots.slots.length);
-            for(int i = 0 ;i < slots.slots.length;i ++){
+            for (int i = 0; i < slots.slots.length; i++) {
                 slots2.slots[i] = slots.slots[i].clone();
             }
-            return  slots2;
+            return slots2;
         }
     }
+
+
 
 
 }

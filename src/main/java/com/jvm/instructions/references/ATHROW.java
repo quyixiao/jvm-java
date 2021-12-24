@@ -1,5 +1,6 @@
 package com.jvm.instructions.references;
 
+import com.alibaba.fastjson.JSON;
 import com.jvm.instructions.base.NoOperandsInstruction;
 import com.jvm.rtda.Frame;
 import com.jvm.rtda.JThread;
@@ -63,8 +64,9 @@ public class ATHROW extends NoOperandsInstruction {
         String goMsg=StringPool.GoString(jMsg);
         log.info(ex.Class().JavaName() + ": " + goMsg);
         Object stes=ex.Extra();
-        //todo
-       /* for (int i = 0; i < stes.Len(); i++)  {
+        System.out.println(JSON.toJSONString(stes));
+       /* //todo
+        for (int i = 0; i < stes.Len(); i++)  {
             ste := stes.Index(i).Interface().(interface {
                 String() string
             })

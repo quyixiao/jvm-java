@@ -11,4 +11,12 @@ public class GOTO extends BranchInstruction {
     public void Execute(Frame frame) {
         Base.Branch(frame, this.Offset);
     }
+
+
+    @Override
+    public String toString() {
+        return "GOTO {" +
+                "Offset=" + Offset +
+                '}';
+    }
 }

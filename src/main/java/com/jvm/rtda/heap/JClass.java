@@ -44,6 +44,22 @@ public class JClass {
         this.sourceFile = getSourceFile(cf)	;	//从class文件中读取源文件名
     }
 
+    public JClass(Uint16 accessFlags,String name,JClassLoader loader ,boolean initStarted, JClass superClass ,JClass interfaces[] ) {
+        this.accessFlags = accessFlags;
+        this.name = name;
+        this.loader = loader;
+        this.initStarted = initStarted;
+        this.superClass = superClass;
+        this.interfaces = interfaces;
+    }
+
+    public JClass(Uint16 accessFlags, String name, JClassLoader loader, boolean initStarted) {
+        this.accessFlags = accessFlags;
+        this.name = name;
+        this.loader = loader;
+        this.initStarted = initStarted;
+    }
+
     //修改newFields()方法，从字段属性表中读取constValueIndex， 代码改动如下:
     public JField[] newFields(JClass jClass, MemberInfo[] cfFields) {
         JField fields[] = new JField[cfFields.length];
@@ -135,7 +151,7 @@ public class JClass {
     // jvms 5.4.4
     public boolean isAccessibleTo(JClass other) {
         return this.IsPublic() ||
-                this.getPackageName() == other.getPackageName();
+                this.getPackageName() .equals(other.getPackageName());
     }
 
 
@@ -165,14 +181,19 @@ public class JClass {
 
     // self extends c
     public boolean isSubClassOf(JClass other) {
+        JClass c = this.superClass;
+        if (c == null) {
+            return false;
+        }
         while (true) {
-            JClass c = this.superClass;
-            if (c == null) {
-                break;
-            }
             if (c == other) {
                 return true;
             }
+            c = c.superClass;
+            if (c == null) {
+                break;
+            }
+
         }
         return false;
     }
@@ -202,6 +223,9 @@ public class JClass {
 //判断S是否实现了T接口，就看S或S的(直接或间接)超类是否 实现了某个接口T'，T'要么是T，要么是T的子接口。
 //isSubInterfaceOf()方法也在class_hierarchy.go文件中
     public boolean isSubInterfaceOf(JClass iface) {
+        if(this.interfaces ==null){
+            return false;
+        }
         for (JClass superInterface : this.interfaces) {
             if (superInterface == iface || superInterface.isSubInterfaceOf(iface)) {
                 return true;
@@ -253,10 +277,15 @@ public class JClass {
     // self implements iface
     public boolean IsImplements(JClass iface) {
         JClass c = this;
+        if(c == null){
+            return false;
+        }
         while (true) {
-            for (JClass i : c.interfaces) {
-                if (i == iface || i.isSubInterfaceOf(iface)) {
-                    return true;
+            if(c.interfaces !=null){
+                for (JClass i : c.interfaces) {
+                    if (i == iface || i.isSubInterfaceOf(iface)) {
+                        return true;
+                    }
                 }
             }
             c = c.superClass;
@@ -313,7 +342,7 @@ public class JClass {
             for (JField field : c.fields) {
                 if (field.classMember.IsStatic() == isStatic &&
                         field.classMember.name.equals(name) &&
-                        field.classMember.descriptor == descriptor) {
+                        field.classMember.descriptor.equals(descriptor)) {
 
                     return field;
                 }
@@ -458,7 +487,7 @@ public class JClass {
             case "[B":
                 return new JObject(this, new byte[ count], null);
             case "[C":
-                return new JObject(this,new Uint16[ count], null);
+                return new JObject(this,new char[ count], null);
             case "[S":
                 return new JObject(this, new short[ count], null);
             case "[I":
@@ -470,7 +499,7 @@ public class JClass {
             case "[D":
                 return new JObject(this, new double [ count], null);
             default:
-                return new JObject(this,new Object[ count], null);
+                return new JObject(this,new JObject[ count], null);
         }
     }
 

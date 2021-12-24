@@ -17,7 +17,11 @@ public class ConstantFloatInfo implements ConstantInfo<Float> {
     @Override
     public void readInfo(ClassReader reader) {
         byte[] bytes = reader.readBytes(4);
-        this.val = ByteUtil.getFloat(bytes);
+        byte[] byte2 = new byte[4];
+        for (int i = 0; i < 4; i++) {
+            byte2[i] = bytes[3 - i];
+        }
+        this.val = ByteUtil.getFloat(byte2);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class PUT_FIELD extends Index16Instruction {
         }
         //第二，如果是final字段，则只能在构 造函数中初始化，否则抛出IllegalAccessError。
         if (field.classMember.IsFinal()) {
-            if (currentClass != field.classMember.Class() || currentMethod.classMember.Name() != "<init>") {
+            if (currentClass != field.classMember.Class() || !currentMethod.classMember.Name().equals("<init>")) {
                 ExceptionUtils.throwException("java.lang.IllegalAccessError");
             }
         }

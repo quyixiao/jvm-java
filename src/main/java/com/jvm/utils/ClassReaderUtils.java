@@ -17,6 +17,7 @@ public class ClassReaderUtils {
 
     public static byte[] readClass(String path) {
         try {
+
             InputStream is = new FileInputStream(path);
             return readClass(is);
         } catch (FileNotFoundException e) {

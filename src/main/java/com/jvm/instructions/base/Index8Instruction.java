@@ -11,4 +11,10 @@ public abstract class Index8Instruction extends AbstractInstruction implements I
         this.Index = reader.ReadUint8().Value();
     }
 
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + " {" +
+                "Index=" + Index +
+                '}';
+    }
 }

@@ -2,39 +2,117 @@ package com.jvm.rtda.heap;
 
 import com.jvm.classfile.ClassFile;
 import com.jvm.classpath.Classpath;
-import com.jvm.utils.ExceptionUtils;
+import com.jvm.data.Uint16;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+class names:
+    - primitive types: boolean, byte, int ...
+    - primitive arrays: [Z, [B, [I ...
+    - non-array classes: java/lang/Object ...
+    - array classes: [Ljava/lang/Object; ...
+*/
 @Slf4j
 public class JClassLoader {
 
 
     public Classpath cp; // ClassLoader依赖Classpath来搜索和读取class文件，cp字段保存 Classpath指针
     public Map<String, JClass> classMap;   // loaded classes	//classMap字段记录已经加载的类数据，key是类的完 全限定名。
+    public  boolean verboseFlag ;
 
 
-    public JClassLoader(Classpath cp) {
+    public JClassLoader(Classpath cp,   boolean verboseFlag) {
         this.cp = cp;
         this.classMap = new HashMap<>();
+        this.verboseFlag = verboseFlag;
+
+        this.loadBasicClasses();
+        this.loadPrimitiveClasses();
     }
 
+    //loadBasicClasses()函数先加载java.lang.Class类，这又会触发
+    //java.lang.Object等类和接口的加载。然后遍历classMap，给已经加载 的每一个类关联类对象。
+   public void  loadBasicClasses() {
+        JClass jlClassClass = this.LoadClass("java/lang/Class");
+        for (Map.Entry<String ,JClass> map :  this.classMap.entrySet()) {
+            JClass clazz = map.getValue();
+            if (clazz.jObject == null) {
+                clazz.jObject = jlClassClass.NewObject();
+                clazz.jObject.extra = clazz;
+            }
+        }
+    }
+
+    public void  loadPrimitiveClasses() {
+        for ( Map.Entry<String,String> primitiveType : ClassNameHelper. primitiveTypes .entrySet()){
+            //loadPrimitiveClasses()方法加载void和基本类型的类
+            this.loadPrimitiveClass(primitiveType.getKey());
+        }
+    }
+
+    //第一，void和基本类型的类名就是void、 int、float等。
+    //第二，基本类型的类没有超类，也没有实现任何接口。
+    //第三，非基本类型的类对象是通过ldc指令加载到操作数栈中的
+    //而基本类型的类对象，虽然在Java代码中看起来是通过字面量获取的，但是编译之后的指令
+    //并不是ldc，而是getstatic。
+    //每个基本类型都有一个包装类，包装类中 有一个静态常量，叫作TYPE，其中存放的就是基本类型的类
+    //也就是说，基本类型的类是通过getstatic指令访问相应包装类 的TYPE字段加载到操作数栈中的
+    public void loadPrimitiveClass(String className) {
+        JClass clazz = new JClass(
+                new Uint16(Constants.ACC_PUBLIC), // todo
+                className,
+                this,
+                true);
+        clazz.jObject = this.classMap.get("java/lang/Class").NewObject();
+        clazz.jObject.extra = clazz;
+        this.classMap.put(className, clazz);
+    }
 
     public JClass LoadClass(String name) {
         JClass jClass = this.classMap.get(name);
         if (jClass != null) {
             return jClass;
         }
-        return this.loadNonArrayClass(name);
+        JClass clazz = null;
+        if (name.toCharArray()[0] == '[') { // array class ,如果是数组类
+            clazz = this.loadArrayClass(name);
+        } else {
+            clazz = this.loadNonArrayClass(name);
+        }
+        JClass jlClassClass = this.classMap.get("java/lang/Class");
+        if (jlClassClass != null) {
+            clazz.jObject = jlClassClass.NewObject();
+            clazz.jObject.extra = clazz;
+        }
+        return clazz;
     }
+
+
+    public JClass loadArrayClass(String name) {
+        JClass clazz = new JClass(
+                new Uint16(Constants.ACC_PUBLIC), // todo
+                name,
+                this,
+                true,                        //因为数组类不需要 初始化，所以把initStarted字段设置成true。
+                this.LoadClass("java/lang/Object"),    //数组类的超类是 java.lang.Object，
+                new JClass[]{    //并且实现了java.lang.Cloneable和java.io.Serializable 接口。
+                        this.LoadClass("java/lang/Cloneable"),
+                        this.LoadClass("java/io/Serializable")
+                }
+        );
+        this.classMap.put(name, clazz);
+        return clazz;
+    }
+
 
     public JClass loadNonArrayClass(String name) {
         byte[] data = this.cp.readClass(name);
         JClass jClass = this.defineClass(data);
         link(jClass);
-        if("java/lang/Float".equals(name)){
+        if ("java/lang/Float".equals(name)) {
             System.out.println("xxxxxxxxxxxxx");
         }
         log.info("[Loaded " + name + " from ]");
@@ -60,7 +138,7 @@ public class JClassLoader {
     // jvms 5.4.3.1
 //除java.lang.Object以外，所有的类都有且仅有一个 超类。因此，除非是Object类，否则需要递归调用LoadClass()方法 加载它的超类
     public void resolveSuperClass(JClass jClass) {
-        if (!"java/lang/Object".equals(jClass.name ) ) {
+        if (!"java/lang/Object".equals(jClass.name)) {
             jClass.superClass = jClass.loader.LoadClass(jClass.superClassName);
         }
     }
@@ -172,7 +250,10 @@ public class JClassLoader {
                     vars.SetDouble(slotId, vald);
                     break;
                 case "Ljava/lang/String;":
-                    ExceptionUtils.throwException("Ljava/lang/String;");
+                    String goStr = (String) cp.GetConstant(cpIndex);
+                    JObject jStr = StringPool.JString(jClass.Loader(), goStr);
+                    vars.SetRef(slotId, jStr);
+
             }
         }
     }

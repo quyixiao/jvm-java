@@ -40,7 +40,14 @@ public class JMethod {
             this.maxStack = codeAttr.MaxStack();
             this.maxLocals = codeAttr.MaxLocals();
             this.code = codeAttr.Code();
+            this.lineNumberTable = codeAttr.LineNumberTableAttribute();
+            this.exceptionTable = new ExceptionTable(codeAttr.ExceptionTable(), this.classMember.Class().constantPool);
         }
+
+        this.exceptions = cfMethod.ExceptionsAttribute();
+        this.classMember.annotationData = cfMethod.RuntimeVisibleAnnotationsAttributeData();
+        this.parameterAnnotationData = cfMethod.RuntimeVisibleParameterAnnotationsAttributeData();
+        this.annotationDefaultData = cfMethod.AnnotationDefaultAttributeData();
     }
 
     public boolean IsSynchronized() {
@@ -210,6 +217,8 @@ public class JMethod {
         }
         return exClasses;
     }
+
+
 
 
 }

@@ -15,7 +15,7 @@ attribute_info {
 public class UnparsedAttribute implements ConstantInfo, AttributeInfo {
     public String name;
     public Uint32 length;
-    private byte[] info;
+    public byte[] info;
 
     public UnparsedAttribute(String name, Uint32 length, byte[] info) {
         this.name = name;

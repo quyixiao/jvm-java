@@ -21,9 +21,13 @@ public class DUP2 extends NoOperandsInstruction {
         OperandStack stack = frame.OperandStack();
         Slot slot1 = stack.PopSlot();
         Slot slot2 = stack.PopSlot();
+
+        Slot slot11 =  slot1.clone();
+        Slot slot22 =  slot2.clone();
+
         stack.PushSlot(slot2);
         stack.PushSlot(slot1);
-        stack.PushSlot(slot2);
-        stack.PushSlot(slot1);
+        stack.PushSlot(slot22);
+        stack.PushSlot(slot11);
     }
 }
