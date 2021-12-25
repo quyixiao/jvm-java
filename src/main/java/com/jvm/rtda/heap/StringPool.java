@@ -7,7 +7,6 @@ public class StringPool {
 
     public static final Map<String, JObject> internedStrings = new HashMap<>();
 
-    // todo
 // go string -> java.lang.String
     public static JObject JString(JClassLoader loader, String goStr) {
         JObject internedStr = internedStrings.get(goStr);
@@ -31,7 +30,7 @@ public class StringPool {
         return String.valueOf(charArr.Chars());
     }
 
-    // todo
+
     public static JObject  InternString(JObject jStr) {
         String goStr = GoString(jStr);
         JObject internedStr =  internedStrings.get(goStr);

@@ -10,7 +10,7 @@ public class FREM extends NoOperandsInstruction {
         OperandStack stack = frame.OperandStack();
         float v2 = stack.PopFloat();
         float v1 = stack.PopFloat();
-        float result = v1 % v2;// todo
+        float result = v1 % v2;
         stack.PushFloat(result);
     }
 }

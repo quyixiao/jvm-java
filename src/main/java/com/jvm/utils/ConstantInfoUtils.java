@@ -55,7 +55,7 @@ public class ConstantInfoUtils {
         return c;
     }
 
-    // todo ugly code
+
     public static ConstantInfo newConstantInfo(Uint8 tag, ConstantPool cp) {
         switch (tag.Value()) {
             case CONSTANT_Integer:

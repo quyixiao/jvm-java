@@ -29,34 +29,36 @@ public class INVOKE_INTERFACE implements Instruction {
         reader.ReadUint8(); // must be 0 第4字节是留给 Oracle的某些Java虚拟机实现用的，它的值必须是0。该字节的存在 是为了保证Java虚拟机可以向后兼容。
     }
 
+
+    //先从运行时常量池中拿到并解析接口方法符号引用，如果解 析后的方法是静态方法或私有方法，则抛出 IncompatibleClassChangeError异常。
+    //从操作数栈中弹出this引用，如果引用是null，则抛出 NullPointerException异常。
+    //如果引用所指对象的类没有实现解析出 来的接口，则抛出IncompatibleClassChangeError异常。
+    //查找最终要调用的方法。如果找不到，或者找到的方法是抽象 的，则抛出Abstract-MethodError异常。
+    //如果找到的方法不是public， 则抛出IllegalAccessError异常
     public void Execute(Frame frame) {
         JConstantPool cp = frame.Method().classMember.Class().ConstantPool();
         InterfaceMethodRef methodRef = (InterfaceMethodRef) cp.GetConstant(this.index);
         JMethod resolvedMethod = methodRef.ResolvedInterfaceMethod();
-        //先从运行时常量池中拿到并解析接口方法符号引用，如果解 析后的方法是静态方法或私有方法，则抛出 IncompatibleClassChangeError异常。
+
         if (resolvedMethod.classMember.IsStatic() || resolvedMethod.classMember.IsPrivate()) {
             ExceptionUtils.throwException("java.lang.IncompatibleClassChangeError");
         }
-        //从操作数栈中弹出this引用，如果引用是null，则抛出 NullPointerException异常。
+
         JObject ref = frame.OperandStack().GetRefFromTop(resolvedMethod.ArgSlotCount() - 1);
         if (ref == null) {
-            ExceptionUtils.throwException("java.lang.NullPointerException"); // todo
+            ExceptionUtils.throwException("java.lang.NullPointerException");
         }
-        //如果引用所指对象的类没有实现解析出 来的接口，则抛出IncompatibleClassChangeError异常。
+
         if (!ref.Class().IsImplements(methodRef.memberRef.symRef.ResolvedClass())) {
             ExceptionUtils.throwException("java.lang.IncompatibleClassChangeError");
         }
-
         JMethod methodToBeInvoked = MethodLookup.LookupMethodInClass(ref.Class(), methodRef.memberRef.Name(), methodRef.memberRef.Descriptor());
-        //查找最终要调用的方法。如果找不到，或者找到的方法是抽象 的，则抛出Abstract-MethodError异常。
         if (methodToBeInvoked == null || methodToBeInvoked.IsAbstract()) {
             ExceptionUtils.throwException("java.lang.AbstractMethodError");
         }
-        //如果找到的方法不是public， 则抛出IllegalAccessError异常
         if (!methodToBeInvoked.classMember.IsPublic()) {
             ExceptionUtils.throwException("java.lang.IllegalAccessError");
         }
-
         MethodInvokeLogic.InvokeMethod(frame, methodToBeInvoked);
     }
 

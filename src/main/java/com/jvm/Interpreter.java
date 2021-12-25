@@ -43,8 +43,8 @@ public class Interpreter {
                 logInstruction(frame ,inst);
             }
 
-            if(line > 17962){
-                System.out.println("bbbbbbbbbbbbb");
+            if(line > 18043){
+              //  System.out.println("bbbbbbbbbbbbb");
             }
             // execute
             inst.Execute(frame);

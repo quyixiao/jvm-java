@@ -11,6 +11,6 @@ public class UnsafeArrayBaseOffset implements JNativeMethod {
     @Override
     public void run(Frame frame) {
         OperandStack stack = frame.OperandStack();
-        stack.PushInt(0) ;// todo
+        stack.PushInt(0) ;
     }
 }

@@ -55,16 +55,16 @@ public class SystemInitProperties implements JNativeMethod {
         map.put("java.class.version", "52.0");
         map.put("java.class.path", "todo");
         map.put("java.awt.graphicsenv", "sun.awt.CGraphicsEnvironment");
-        map.put("os.name", "");   // todo
-        map.put("os.arch", ""); // todo
-        map.put("os.version", "");             // todo
-        map.put("file.separator", "/");            // todo os.PathSeparator
-        map.put("path.separator", ":");            // todo os.PathListSeparator
-        map.put("line.separator", "\n");           // todo
-        map.put("user.name", "");             // todo
-        map.put("user.home", "");             // todo
-        map.put("user.dir", ".");            // todo
-        map.put("user.country", "CN");           // todo
+        map.put("os.name", "");
+        map.put("os.arch", "");
+        map.put("os.version", "");
+        map.put("file.separator", "/");
+        map.put("path.separator", ":");
+        map.put("line.separator", "\n");
+        map.put("user.name", "");
+        map.put("user.home", "");
+        map.put("user.dir", ".");
+        map.put("user.country", "CN");
         map.put("file.encoding", "UTF-8");
         map.put("sun.stdout.encoding", "UTF-8");
         map.put("sun.stderr.encoding", "UTF-8");

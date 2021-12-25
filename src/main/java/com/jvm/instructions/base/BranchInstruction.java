@@ -19,7 +19,7 @@ public abstract class BranchInstruction implements Instruction {
         OperandStack stack = frame.OperandStack();
         Object ref2 = stack.PopRef();
         Object ref1 = stack.PopRef();
-        return ref1 == ref2; // todo
+        return ref1 == ref2;
     }
 
     public Tuple2<Integer ,Integer> _icmpPop(Frame frame) {

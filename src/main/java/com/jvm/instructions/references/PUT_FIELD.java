@@ -78,7 +78,7 @@ public class PUT_FIELD extends Index16Instruction {
                 refx.Fields().SetRef(slotId, valx);
                 break;
             default:
-                // todo
+
         }
 
     }

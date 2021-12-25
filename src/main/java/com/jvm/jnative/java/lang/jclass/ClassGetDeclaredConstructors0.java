@@ -67,7 +67,7 @@ public class ClassGetDeclaredConstructors0 implements JNativeMethod {
                 ops.PushRef(ClassHelper.toClassArr(classLoader, constructor.ParameterTypes()));       // parameterTypes
                 ops.PushRef(ClassHelper.toClassArr(classLoader, constructor.ExceptionTypes()));      // checkedExceptions
                 ops.PushInt(constructor.classMember.AccessFlags().Value());                          // modifiers
-                ops.PushInt(0);                                                  // todo slot
+                ops.PushInt(0);
                 ops.PushRef(ClassHelper.getSignatureStr(classLoader, constructor.classMember.Signature()));        // signature
                 ops.PushRef(ClassHelper.toByteArr(classLoader, constructor.classMember.AnnotationData()));       // annotations
                 ops.PushRef(ClassHelper.toByteArr(classLoader, constructor.ParameterAnnotationData())); // parameterAnnotations

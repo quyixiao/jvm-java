@@ -18,7 +18,7 @@ public class UnFSgetBooleanAttributes0 implements JNativeMethod {
         JObject f = vars.GetRef(1);
         String path = _getPath(f);
 
-        // todo
+
         int attributes0 = 0;
         if (_exists(path)) {
             attributes0 |= 0x01;

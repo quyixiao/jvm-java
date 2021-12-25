@@ -27,7 +27,7 @@ public class AControllerDoPrivileged implements JNativeMethod {
         OperandStack stack = frame.OperandStack();
         stack.PushRef(action);
 
-        JMethod method = action.Class().GetInstanceMethod("run", "()Ljava/lang/Object;"); // todo
+        JMethod method = action.Class().GetInstanceMethod("run", "()Ljava/lang/Object;");
         MethodInvokeLogic.InvokeMethod(frame, method);
     }
 }

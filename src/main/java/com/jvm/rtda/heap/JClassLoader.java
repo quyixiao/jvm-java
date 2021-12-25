@@ -62,7 +62,7 @@ public class JClassLoader {
     //也就是说，基本类型的类是通过getstatic指令访问相应包装类 的TYPE字段加载到操作数栈中的
     public void loadPrimitiveClass(String className) {
         JClass clazz = new JClass(
-                new Uint16(Constants.ACC_PUBLIC), // todo
+                new Uint16(Constants.ACC_PUBLIC),
                 className,
                 this,
                 true);
@@ -93,7 +93,7 @@ public class JClassLoader {
 
     public JClass loadArrayClass(String name) {
         JClass clazz = new JClass(
-                new Uint16(Constants.ACC_PUBLIC), // todo
+                new Uint16(Constants.ACC_PUBLIC),
                 name,
                 this,
                 true,                        //因为数组类不需要 初始化，所以把initStarted字段设置成true。
@@ -162,7 +162,7 @@ public class JClassLoader {
     }
 
     public void verify(JClass jClass) {
-        // todo
+
     }
 
     // jvms 5.4.2

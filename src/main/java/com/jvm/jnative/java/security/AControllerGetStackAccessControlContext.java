@@ -9,7 +9,6 @@ import com.jvm.rtda.Frame;
 public class AControllerGetStackAccessControlContext  implements JNativeMethod {
     @Override
     public void run(Frame frame) {
-        // todo
         frame.OperandStack().PushRef(null);
     }
 }

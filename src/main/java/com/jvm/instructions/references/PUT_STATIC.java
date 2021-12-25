@@ -1,5 +1,6 @@
 package com.jvm.instructions.references;
 
+import com.jvm.instructions.base.ClassInitLogic;
 import com.jvm.instructions.base.Index16Instruction;
 import com.jvm.rtda.Frame;
 import com.jvm.rtda.OperandStack;
@@ -18,7 +19,12 @@ public class PUT_STATIC extends Index16Instruction {
         //先拿到当前方法、当前类和当前常量池，然后解析字段符号引
         //用。如果声明字段的类还没有被初始化，则需要先初始化该类
         JClass jClass = field.classMember.Class();
-        // todo: init class
+        //先拿到当前方法、当前类和当前常量池，然后解析字段符号引用。如果声明字段的类还没有被初始化，则需要先初始化该类
+        if (!jClass.InitStarted() ){
+            frame.RevertNextPC();
+            ClassInitLogic.InitClass(frame.Thread(), jClass);
+            return;
+        }
 
         //如果解析后的字段是实例字段而非静态字段，则抛出 IncompatibleClassChangeError异常。
         if (!field.classMember.IsStatic()) {
@@ -60,7 +66,7 @@ public class PUT_STATIC extends Index16Instruction {
                 slots.SetRef(slotId, stack.PopRef());
                 break;
             default:
-                // todo
+
         }
     }
 }

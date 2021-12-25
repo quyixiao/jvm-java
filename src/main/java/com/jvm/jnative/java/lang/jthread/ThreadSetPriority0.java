@@ -10,6 +10,5 @@ public class ThreadSetPriority0 implements JNativeMethod {
         // vars := frame.LocalVars()
         // this := vars.GetThis()
         // newPriority := vars.GetInt(1))
-        // todo
     }
 }

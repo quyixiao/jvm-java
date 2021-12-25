@@ -158,7 +158,7 @@ public class OperandStack {
         return this.PopInt() == 1;
     }
 
-    // todo
+
     public OperandStack  NewOperandStack(int maxStack ) {
         return new OperandStack(maxStack);
     }

@@ -10,6 +10,6 @@ public class UnsafeArrayIndexScale implements JNativeMethod {
     @Override
     public void run(Frame frame) {
         OperandStack stack = frame.OperandStack();
-        stack.PushInt(1) ;// todo
+        stack.PushInt(1) ;
     }
 }

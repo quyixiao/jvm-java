@@ -13,7 +13,7 @@ public class DREM extends NoOperandsInstruction {
         OperandStack stack = frame.OperandStack();
         double v2 = stack.PopDouble();
         double v1 = stack.PopDouble();
-        double result = v1 % v2;// todo
+        double result = v1 % v2;
         stack.PushDouble(result);
     }
 

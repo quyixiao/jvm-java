@@ -41,7 +41,6 @@ public class InterfaceMethodRef {
         this.method = method;
     }
 
-    // todo
 //如果能在接口中找到方法，就返回找到的方法，否则调用 lookupMethodInInterfaces()函数在超接口中寻找。
     public JMethod lookupInterfaceMethod(JClass iface, String name, String descriptor) {
         for (JMethod method : iface.methods) {

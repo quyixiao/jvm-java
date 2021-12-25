@@ -9,7 +9,6 @@ import com.jvm.rtda.heap.JClass;
 public class ClassDesiredAssertionStatus0 implements JNativeMethod {
     @Override
     public void run(Frame frame) {
-        // todo
         frame.OperandStack().PushBoolean(false);
     }
 }

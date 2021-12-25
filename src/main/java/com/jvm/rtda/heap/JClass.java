@@ -103,7 +103,7 @@ public class JClass {
         if ( sfAttr != null) {
             return sfAttr.FileName();
         }
-        return "Unknown" ;// todo
+        return "Unknown" ;
     }
     public boolean IsPublic() {
         return 0 != (this.accessFlags.Value() & Constants.ACC_PUBLIC);

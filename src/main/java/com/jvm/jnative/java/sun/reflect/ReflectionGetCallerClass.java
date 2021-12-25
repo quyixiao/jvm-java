@@ -13,7 +13,7 @@ public class ReflectionGetCallerClass implements JNativeMethod {
         // top0 is sun/reflect/Reflection
         // top1 is the caller of getCallerClass()
         // top2 is the caller of method
-        Frame callerFrame = frame.Thread().GetFrames()[2];// todo
+        Frame callerFrame = frame.Thread().GetFrames()[2];
         JObject callerClass = callerFrame.Method().classMember.Class().JObject();
         frame.OperandStack().PushRef(callerClass);
     }

@@ -15,9 +15,9 @@ public class JMethod {
     public byte[] code;
     public int argSlotCount;
 
-    public ExceptionTable exceptionTable;           // todo: rename
+    public ExceptionTable exceptionTable;
     public LineNumberTableAttribute lineNumberTable;
-    public ExceptionsAttribute exceptions; // todo: rename
+    public ExceptionsAttribute exceptions;
     public byte[] parameterAnnotationData;                         // RuntimeVisibleParameterAnnotations_attribute
     public byte[] annotationDefaultData;// AnnotationDefault_attribute
     public MethodDescriptor parsedDescriptor;

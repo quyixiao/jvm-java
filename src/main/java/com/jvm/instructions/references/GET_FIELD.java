@@ -51,7 +51,7 @@ public class GET_FIELD extends Index16Instruction {
                 stack.PushRef(slots.GetRef(slotId));
                 break;
             default:
-                // todo
+
         }
     }
 }

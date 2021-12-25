@@ -13,6 +13,6 @@ public class UnsafeAddressSize implements JNativeMethod {
         // vars.GetRef(0) // this
 
         OperandStack stack = frame.OperandStack();
-        stack.PushInt(8); // todo unsafe.Sizeof(int)
+        stack.PushInt(8);
     }
 }

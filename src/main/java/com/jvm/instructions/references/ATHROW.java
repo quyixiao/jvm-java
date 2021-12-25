@@ -54,7 +54,6 @@ public class ATHROW extends NoOperandsInstruction {
         return false;
     }
 
-    // todo
     //如果遍历完Java虚拟机栈还是找不到异常处理代码，则 handleUncaughtException()函数打印出Java虚拟机栈信息
     //handleUncaughtException()函数把Java虚拟机栈清空，然后打 印出异常信息。由于Java虚拟机栈已经空了，所以解释器也就终止 执行了。
     //上面的代码使用Go语言的reflect包打印Java虚拟机栈信 息。可以猜到，异常对象的extra字段中存放的就是Java虚拟机栈信 息，那么这个extra字段是什么时候设置的呢?

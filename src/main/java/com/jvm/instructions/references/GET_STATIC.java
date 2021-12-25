@@ -1,6 +1,7 @@
 package com.jvm.instructions.references;
 
 
+import com.jvm.instructions.base.ClassInitLogic;
 import com.jvm.instructions.base.Index16Instruction;
 import com.jvm.rtda.Frame;
 import com.jvm.rtda.OperandStack;
@@ -15,7 +16,13 @@ public class GET_STATIC extends Index16Instruction {
         FieldRef fieldRef = (FieldRef) cp.GetConstant(this.Index);
         JField field = fieldRef.ResolvedField();
         JClass jClass = field.classMember.Class();
-        // todo: init class
+        //如果声明字段的类还没有初始 化好，也需要先初始化。
+        if (!jClass.InitStarted() ){
+            frame.RevertNextPC();
+            ClassInitLogic.InitClass(frame.Thread(), jClass);
+            return;
+        }
+
         if (!field.classMember.IsStatic()) {
             //如果解析后的字段不是静态字段，也要抛出 IncompatibleClassChangeError异常
             ExceptionUtils.throwException("java.lang.IncompatibleClassChangeError");
@@ -47,7 +54,7 @@ public class GET_STATIC extends Index16Instruction {
                 stack.PushRef(slots.GetRef(slotId));
                 break;
             default:
-                // todo
+
         }
     }
 }

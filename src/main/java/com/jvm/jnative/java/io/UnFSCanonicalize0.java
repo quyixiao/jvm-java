@@ -15,7 +15,6 @@ public class UnFSCanonicalize0 implements JNativeMethod {
       LocalVars  vars = frame.LocalVars();
         JObject path = vars.GetRef(1);
 
-        // todo
         String goPath = StringPool.GoString(path);
         String goPath2 = Clean(goPath);
         if (!goPath2.equals(goPath)  ){

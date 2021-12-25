@@ -72,7 +72,7 @@ public class ClassGetDeclaredMethods0 implements JNativeMethod {
                 ops.PushRef(method.ReturnType().JObject());                             // returnType
                 ops.PushRef(ClassHelper.toClassArr(classLoader, method.ExceptionTypes()));       // checkedExceptions
                 ops.PushInt(method.classMember.AccessFlags().Value());                              // modifiers
-                ops.PushInt(0);                                             // todo: slot
+                ops.PushInt(0);
                 ops.PushRef(ClassHelper.getSignatureStr(classLoader, method.classMember.Signature()));        // signature
                 ops.PushRef(ClassHelper.toByteArr(classLoader, method.classMember.AnnotationData()));      // annotations
                 ops.PushRef(ClassHelper.toByteArr(classLoader, method.ParameterAnnotationData()));// parameterAnnotations

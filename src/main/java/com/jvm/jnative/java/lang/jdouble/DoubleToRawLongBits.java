@@ -11,7 +11,7 @@ public class DoubleToRawLongBits implements JNativeMethod {
     @Override
     public void run(Frame frame) {
         double value = frame.LocalVars().GetDouble(0);
-        byte[] bits = ByteUtil.getBytes(value); // todo
+        byte[] bits = ByteUtil.getBytes(value);
         frame.OperandStack().PushLong(ByteUtil.getLong(bits));
     }
 }
