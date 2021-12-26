@@ -8,7 +8,7 @@ import java.util.Map;
 public class Malloc {
 
     public static Map<Long, byte[]> _allocated = new HashMap<>();
-    public static long _nextAddress = 0l; // not zero!
+    public static long _nextAddress = 64l; // not zero!
 
     public static long allocate(long size) {
         byte[] mem = new byte[(int) size];

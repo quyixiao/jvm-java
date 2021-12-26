@@ -16,8 +16,7 @@ public class IINC extends Index8Instruction {
     @Override
     public void FetchOperands(BytecodeReader reader) {
         this.Index = reader.ReadUint8().Value();
-
-        this.Const =(byte) reader.ReadInt8();
+        this.Const = reader.ReadInt8();
     }
 
     @Override

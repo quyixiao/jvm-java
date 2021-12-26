@@ -10,11 +10,12 @@ EnclosingMethod_attribute {
 */
 
 import com.jvm.data.Uint16;
+import com.jvm.rtda.heap.JConstantPool;
 import com.jvm.utils.t.Tuple2;
 import lombok.Data;
 
 @Data
-public class EnclosingMethodAttribute implements ConstantInfo {
+public class EnclosingMethodAttribute implements AttributeInfo {
     public ConstantPool cp;
     public Uint16 classIndex;
     public Uint16 methodIndex;
@@ -25,6 +26,10 @@ public class EnclosingMethodAttribute implements ConstantInfo {
         this.methodIndex = reader.readUint16();
     }
 
+
+    public EnclosingMethodAttribute(ConstantPool cp) {
+        this.cp = cp;
+    }
 
     public String ClassName() {
         return this.cp.getClassName(this.classIndex);
@@ -38,10 +43,6 @@ public class EnclosingMethodAttribute implements ConstantInfo {
         }
     }
 
-    @Override
-    public Object Value() {
-        return null;
-    }
 
 
 

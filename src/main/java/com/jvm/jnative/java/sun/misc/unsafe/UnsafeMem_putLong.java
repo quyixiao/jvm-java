@@ -7,6 +7,7 @@ import com.jvm.rtda.LocalVars;
 import com.jvm.rtda.OperandStack;
 import com.jvm.utils.ByteUtil;
 import lombok.val;
+import sun.nio.cs.ext.IBM037;
 
 //
 //// public native void putShort(long address, short x);
@@ -61,9 +62,23 @@ public class UnsafeMem_putLong implements JNativeMethod {
         long address = vars.GetLong(1);
         long value = vars.GetLong(3);
         byte mem []= Malloc.memoryAt(address);
-        //PutInt64(mem, value)
+        PutInt64(mem, value);
+        Malloc._allocated.put(address, mem);
     }
 
+
+
+
+    public void   PutInt64( byte []b , long  v ) {
+        b[0] = (byte)(v >> 56);
+        b[1] = (byte)(v >> 48);
+        b[2] = (byte)(v >> 40);
+        b[3] = (byte)(v >> 32);
+        b[4] = (byte)(v >> 24);
+        b[5] = (byte)(v >> 16);
+        b[6] = (byte)(v >> 8);
+        b[7] = (byte)(v);
+    }
 
 
 }

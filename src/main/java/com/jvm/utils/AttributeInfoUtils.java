@@ -48,18 +48,26 @@ public class AttributeInfoUtils {
 
     public static AttributeInfo newAttributeInfo(String attrName, Uint32 attrLen, ConstantPool cp) {
         switch (attrName) {
+            case "BootstrapMethods":
+                return new BootstrapMethodsAttribute();
             case "Code":
                 return new CodeAttribute(cp);
             case "ConstantValue":
                 return new ConstantValueAttribute();
             case "Deprecated":
                 return new DeprecatedAttribute();
+            case "EnclosingMethod":
+                return new EnclosingMethodAttribute( cp);
             case "Exceptions":
                 return new ExceptionsAttribute();
+            case "InnerClasses":
+                return new InnerClassesAttribute();
             case "LineNumberTable":
                 return new LineNumberTableAttribute();
             case "LocalVariableTable":
                 return new LocalVariableTableAttribute();
+            case "LocalVariableTypeTable":
+                return new LocalVariableTypeTableAttribute();
             case "SourceFile":
                 return new SourceFileAttribute(cp);
             case "Synthetic":

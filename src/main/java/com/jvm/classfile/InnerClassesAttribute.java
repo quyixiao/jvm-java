@@ -17,7 +17,7 @@ InnerClasses_attribute {
 }
 */
 @Data
-public class InnerClassesAttribute implements ConstantInfo {
+public class InnerClassesAttribute implements AttributeInfo {
 
     public InnerClassInfo[] classes;
 
@@ -35,8 +35,5 @@ public class InnerClassesAttribute implements ConstantInfo {
         }
     }
 
-    @Override
-    public Object Value() {
-        return null;
-    }
+
 }

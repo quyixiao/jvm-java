@@ -41,7 +41,7 @@ public class JVM {
 
     //execMain()方法先加载主类，然后执行其main()方法
     public void execMain() {
-        String className = this.cmd.jclass.replaceAll(".", "/");
+        String className = this.cmd.jclass.replaceAll("\\.", "/");
         JClass mainClass = this.classLoader.LoadClass(className);
         JMethod mainMethod = mainClass.GetMainMethod();
         if (mainMethod == null) {

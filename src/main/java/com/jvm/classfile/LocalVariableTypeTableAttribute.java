@@ -17,7 +17,7 @@ LocalVariableTypeTable_attribute {
 }
 */
 @Data
-public class LocalVariableTypeTableAttribute implements ConstantInfo {
+public class LocalVariableTypeTableAttribute implements AttributeInfo {
 
 
     public LocalVariableTypeTableEntry localVariableTypeTable[];
@@ -37,8 +37,4 @@ public class LocalVariableTypeTableAttribute implements ConstantInfo {
         }
     }
 
-    @Override
-    public Object Value() {
-        return null;
-    }
 }

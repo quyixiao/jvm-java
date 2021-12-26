@@ -121,6 +121,7 @@ public class JClassLoader {
 
     public JClass defineClass(byte[] data) {
         JClass jClass = parseClass(data);
+        hackClass(jClass);
         jClass.loader = this;
         resolveSuperClass(jClass);
         resolveInterfaces(jClass);
@@ -257,6 +258,17 @@ public class JClassLoader {
             }
         }
     }
+
+
+
+
+    public void  hackClass(JClass clazz) {
+        if (clazz.name.equals("java/lang/ClassLoader" )){
+            JMethod loadLibrary = clazz.GetStaticMethod("loadLibrary", "(Ljava/lang/Class;Ljava/lang/String;Z)V");
+            loadLibrary.code = new byte []{(byte)0xb1} ;// return void
+        }
+    }
+
 
 
 }

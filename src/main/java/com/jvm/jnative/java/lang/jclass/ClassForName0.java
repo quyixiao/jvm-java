@@ -23,7 +23,7 @@ public class ClassForName0 implements JNativeMethod {
         JObject jName = vars.GetRef(0);
         boolean initialize = vars.GetBoolean(1);
         String goName = StringPool.GoString(jName);
-        goName = goName.replaceAll(".", "/");
+        goName = goName.replaceAll("\\.", "/");
         JClass goClass = frame.Method().classMember.Class().Loader().LoadClass(goName);
         JObject jClass = goClass.JObject();
         if (initialize && !goClass.InitStarted()) {

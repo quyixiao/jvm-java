@@ -5,14 +5,17 @@ import com.jvm.rtda.JThread;
 import com.jvm.rtda.OperandStack;
 import com.jvm.rtda.heap.*;
 import com.jvm.utils.ExceptionUtils;
+import com.jvm.utils.StringUtils;
 
 public class ClassHelper {
 
 
     // []*Class => Class[]
     public static JObject toClassArr(JClassLoader loader, JClass classes[]) {
-        int arrLen=classes.length;
-
+        int arrLen=0;
+        if(classes !=null ){
+            arrLen = classes.length;
+        }
         JClass classArrClass=loader.LoadClass("java/lang/Class").ArrayClass();
         JObject classArr=classArrClass.NewArray(arrLen);
 
@@ -36,7 +39,7 @@ public class ClassHelper {
 
 
     public static JObject getSignatureStr(JClassLoader loader, String signature) {
-        if (!signature.equals("")) {
+        if (StringUtils.isNotBlank(signature)) {
             return StringPool.JString(loader, signature);
         }
         return null;

@@ -22,7 +22,7 @@ public class BytecodeReader {
 
     //下面实现一系列的Read()方法。先看最简单的ReadUint8()方 法
     public int ReadInt8() {
-        return this.ReadUint8().Value();
+        return (byte)this.ReadUint8().Value();
     }
 
     public Uint8 ReadUint8() {

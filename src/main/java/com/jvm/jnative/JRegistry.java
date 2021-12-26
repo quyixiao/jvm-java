@@ -23,6 +23,8 @@ import com.jvm.jnative.java.lang.jthread.ThreadStart0;
 import com.jvm.jnative.java.security.AControllerDoPrivileged;
 import com.jvm.jnative.java.security.AControllerGetStackAccessControlContext;
 import com.jvm.jnative.java.sun.io.Win32ErrorModeSetErrorMode;
+import com.jvm.jnative.java.sun.misc.SignalFindSignal;
+import com.jvm.jnative.java.sun.misc.SignalHandle0;
 import com.jvm.jnative.java.sun.misc.URLClassPathgetLookupCacheURLs;
 import com.jvm.jnative.java.sun.misc.VMInitialize;
 import com.jvm.jnative.java.sun.misc.unsafe.*;
@@ -124,6 +126,8 @@ public class JRegistry {
         Register("sun/reflect/Reflection", "getCallerClass", "()Ljava/lang/Class;", ReflectionGetCallerClass.class);
         Register("sun/reflect/Reflection", "getClassAccessFlags", "(Ljava/lang/Class;)I", ReflectionGetClassAccessFlags.class);
 
+        Register("sun/misc/Signal", "findSignal", "(Ljava/lang/String;)I", SignalFindSignal.class);
+        Register("sun/misc/Signal","handle0", "(IJ)J", SignalHandle0.class);
 
     }
 

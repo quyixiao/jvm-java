@@ -83,9 +83,10 @@ public class JClass {
             methods[i].classMember.jClass = jClass;
             methods[i].classMember.copyMemberInfo(cfMethod);
             methods[i].copyAttributes(cfMethod);//maxStack、maxLocals和字节码在class文件中 是以属性的形式存储在method_info结构中的。
-            methods[i].calcArgSlotCount();
             MethodDescriptorParser parser = new MethodDescriptorParser();
             MethodDescriptor md = parser.parseMethodDescriptor(methods[i].classMember.descriptor);
+            methods[i].parsedDescriptor = md ;
+            methods[i].calcArgSlotCount();
             //先计算argSlotCount字段，如果是本地 方法，则注入字节码和其他信息。
             if (methods[i].IsNative() ){
                 methods[i].injectCodeAttribute(md.returnType);
@@ -577,5 +578,6 @@ public class JClass {
     public String  SourceFile() {
         return this.sourceFile;
     }
+
 
 }

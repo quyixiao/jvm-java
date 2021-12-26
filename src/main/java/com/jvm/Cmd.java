@@ -9,7 +9,7 @@ public class Cmd {
     public boolean versionFlag;
     public String cpOption;
     public String jclass;
-    public String[] args;
+    public String[] args =  new String[0];
     public String XjreOption;
 
     public  boolean verboseInstFlag;

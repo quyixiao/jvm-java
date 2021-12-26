@@ -45,23 +45,24 @@ public class FieldRef {
 // 用通俗的语言描述字段访问规则。如果字段是public，则任何 类都可以访问。如果字段是protected，则只有子类和同一个包下的 类可以访问。如果字段有默认访问权限
 //(非public，非protected，也 非privated)，则只有同一个包下的类可以访问。否则，字段是 private，只有声明这个字段的类才能访问。
     public JField lookupField(JClass c, String name, String descriptor) {
-        for (JField field : c.fields) {
-            if (field.classMember.name.equals(name) && field.classMember.descriptor.equals( descriptor)) {
-                return field;
+        if (c.fields != null && c.fields.length > 0) {
+            for (JField field : c.fields) {
+                if (field.classMember.name.equals(name) && field.classMember.descriptor.equals(descriptor)) {
+                    return field;
+                }
             }
         }
-
-        for (JClass iface : c.interfaces) {
-            JField field = lookupField(iface, name, descriptor);
-            if (field != null) {
-                return field;
+        if (c.interfaces != null && c.interfaces.length > 0) {
+            for (JClass iface : c.interfaces) {
+                JField field = lookupField(iface, name, descriptor);
+                if (field != null) {
+                    return field;
+                }
             }
         }
-
         if (c.superClass != null) {
             return lookupField(c.superClass, name, descriptor);
         }
-
         return null;
     }
 
