@@ -11,18 +11,12 @@ public class JObject  {
 
     public JObject(JClass jClass) {
         this.jClass = jClass;
-        if(jClass.name .equals("[Ljava/util/Hashtable$Entry;")){
-            System.out.println("-----------------");
-        }
         this.data = new Slots(this.jClass.instanceSlotCount);
     }
 
     public JObject(JClass jClass, Object data, Object extra) {
         this.jClass = jClass;
         this.data = data;
-        if(jClass.name .equals("[Ljava/util/Hashtable$Entry;")){
-            System.out.println("-----------------");
-        }
         this.extra = extra;
     }
 

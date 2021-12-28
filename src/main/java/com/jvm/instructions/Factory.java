@@ -518,7 +518,6 @@ public class Factory {
                return new INVOKE_NATIVE();
             // case 0xff: impdep2
             default:
-                log.info("-------------------openCode = " + opcode);
                 ExceptionUtils.throwException("Unsupported opcode: " + opcode);
         }
         return null;

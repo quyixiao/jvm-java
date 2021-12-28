@@ -112,10 +112,7 @@ public class JClassLoader {
         byte[] data = this.cp.readClass(name);
         JClass jClass = this.defineClass(data);
         link(jClass);
-        if ("java/lang/Float".equals(name)) {
-            System.out.println("xxxxxxxxxxxxx");
-        }
-        log.info("[Loaded " + name + " from ]");
+        //log.info("[Loaded " + name + " from ]");
         return jClass;
     }
 

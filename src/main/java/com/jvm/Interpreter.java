@@ -13,7 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 public class Interpreter {
 
 
-    public static  int line  = 1;
+    public static  boolean flag  = false;
+
+    public  static  int line = 0 ;
 
     //interpret()方法的其余代码先创建一个Thread实例，然后创建 一个帧并把它推入Java虚拟机栈顶，最后执行方法。
     public static void interpret(JThread thread, boolean logInst) {
@@ -39,13 +41,13 @@ public class Interpreter {
             Instruction inst = Factory.NewInstruction(opcode);
             inst.FetchOperands(reader);
             frame.SetNextPC(reader.PC());
-            if(true ){
-                logInstruction(frame ,inst);
+            if (getClassMethodName(frame).equals("sun/misc/VM.<clinit>() #55")) {
+                flag = true;
+            }
+            if (flag) {
+                logInstruction(frame, inst);
             }
 
-            if(line > 39829){
-            //    System.out.println("bbbbbbbbbbbbb");
-            }
             // execute
             inst.Execute(frame);
             if (thread.IsStackEmpty()) {
@@ -58,7 +60,8 @@ public class Interpreter {
         JMethod method = frame.Method();
         String className = method.classMember.Class().Name();
         String methodName = method.classMember.Name();
-        return className + "." + methodName;
+        int pc = frame.Thread().PC();
+        return className + "." + methodName + "() #" + pc;
     }
 
     public static void logInstruction(Frame frame, Instruction inst) {
