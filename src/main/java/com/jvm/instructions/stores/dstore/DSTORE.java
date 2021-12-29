@@ -6,6 +6,6 @@ import com.jvm.rtda.Frame;
 public class DSTORE extends Index8Instruction {
     @Override
     public void Execute(Frame frame) {
-
+        _dstore(frame, this.Index);
     }
 }

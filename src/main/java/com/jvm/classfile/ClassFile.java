@@ -33,7 +33,6 @@ ClassFile {
 @Data
 public class ClassFile {
 
-
     public Uint32 magic;
     public Uint16 minorVersion;
     public Uint16 majorVersion;
@@ -88,7 +87,7 @@ public class ClassFile {
     }
 
     public void readAndCheckMagic(ClassReader reader) {
-        Uint32 magic = reader.readUint32();
+        magic = reader.readUint32();
         if (magic.Value() != 0xCAFEBABE) {
             ExceptionUtils.throwException("魔数不正确 ");
         }

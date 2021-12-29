@@ -5,6 +5,7 @@ import com.jvm.utils.ConstantInfoUtils;
 import com.jvm.utils.ExceptionUtils;
 import com.jvm.utils.t.Tuple2;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 public class ConstantPool implements ConstantInfo {
@@ -47,6 +48,11 @@ public class ConstantPool implements ConstantInfo {
 
     @Override
     public Object Value() {
+        return null;
+    }
+
+    @Override
+    public String  toString(){
         return null;
     }
 }

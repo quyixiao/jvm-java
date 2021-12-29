@@ -69,7 +69,7 @@ public class Interpreter {
         String className = method.classMember.Class().Name();
         String methodName = method.classMember.Name();
         int pc = frame.Thread().PC();
-        System.out.println(line +"  "+ className + "." + methodName + "() #" + pc + " " +inst);
+        System.out.println( className + "." + methodName + "() #" + pc + " " +inst);
         line ++;
     }
 

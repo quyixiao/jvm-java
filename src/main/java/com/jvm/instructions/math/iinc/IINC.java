@@ -7,7 +7,7 @@ import com.jvm.rtda.Frame;
 import com.jvm.rtda.LocalVars;
 
 // Increment local variable by constant
-public class IINC extends Index8Instruction {
+public class IINC implements Instruction {
 
     public int Index;
     public int Const;
@@ -25,5 +25,13 @@ public class IINC extends Index8Instruction {
         Integer val = localVars.GetInt(this.Index);
         val += this.Const;
         localVars.SetInt(this.Index, val);
+    }
+
+    @Override
+    public String toString() {
+        return "IINC{" +
+                "Index=" + Index +
+                ", Const=" + Const +
+                '}';
     }
 }

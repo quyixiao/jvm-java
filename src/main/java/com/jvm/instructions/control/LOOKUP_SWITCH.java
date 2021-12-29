@@ -39,6 +39,8 @@ public class LOOKUP_SWITCH implements Instruction {
     @Override
     public void Execute(Frame frame) {
         Integer key = frame.OperandStack().PopInt();
+        int a = this.defaultOffset;
+        int b = frame.thread.pc;
         for (int i = 0; i < this.npairs * 2; i += 2) {
             if (this.matchOffsets[i] == key.intValue()) {
                 int offset = this.matchOffsets[i + 1];
