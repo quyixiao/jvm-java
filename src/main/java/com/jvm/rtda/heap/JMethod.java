@@ -108,7 +108,8 @@ public class JMethod {
 
 
     public void injectCodeAttribute(String returnType) {
-        this.maxStack = 4; // 因为本地方法帧的 局部变量表只用来存放参数值，所以把argSlotCount赋给maxLocals 字段刚好。
+        this.maxStack = 4;
+        // 因为本地方法帧的 局部变量表只用来存放参数值，所以把argSlotCount赋给maxLocals 字段刚好。
         this.maxLocals = this.argSlotCount;
         //至于code字段，也就是本地方法的字节码，第一条指令 都是0xFE，第二条指令则根据函数的返回值选择相应的返回指令。
         switch (returnType.toCharArray()[0]) {

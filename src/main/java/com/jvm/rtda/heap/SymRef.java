@@ -5,7 +5,7 @@ import com.jvm.utils.ExceptionUtils;
 public class SymRef {
     public JConstantPool cp;                        //cp字段存放符号引用所在的运行时常量池指针，这样就可以通 过符号引用访问到运行时常量池，进一步又可以访问到类数据。
     public String className;                    //className字段存放类的完全限定名。
-    public JClass jClass;                //class字段缓存解析后的类结 构体指针，这样类符号引用只需要解析一次就可以了，后续可以直 接使用缓存值。
+    public JClass jClass;                //class字段缓存解析后的类结构体指针，这样类符号引用只需要解析一次就可以了，后续可以直接使用缓存值。
 
 
     //如果类符号引用已经解析，ResolvedClass()方法直接返回类指 针，否则调用resolveClassRef()方法进行解析。

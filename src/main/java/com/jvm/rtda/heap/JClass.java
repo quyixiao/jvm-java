@@ -11,19 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JClass {
-    public Uint16 accessFlags;
+    public Uint16 accessFlags;      //
     public String name;//              string // thisClassName
-    public String superClassName;
-    public String[] interfaceNames;
-    public JConstantPool constantPool;
-    public JField[] fields;
-    public JMethod[] methods;
-    public JClassLoader loader;
-    public JClass superClass;
-    public JClass interfaces[];
-    public int instanceSlotCount;
-    public int staticSlotCount;
-    public Slots staticVars;
+    public String superClassName;       //父类名称
+    public String[] interfaceNames; //接口名称数组
+    public JConstantPool constantPool;//类常量池
+    public JField[] fields;             //所有的属性
+    public JMethod[] methods;           // 方法
+    public JClassLoader loader;         //存放类加载器 指针
+    public JClass superClass;               // 字段存放类的超类指针
+    public JClass interfaces[];             //存放接口指针
+    public int instanceSlotCount;       //实例变量占据的空间大小
+    public int staticSlotCount; //  存放类变量空间大小
+    public Slots staticVars;                //字段存放静态变 量
     public boolean initStarted;        //为了判断类是否已经初始化，需要给Class结构体添加一个字段
     public  JObject             jObject;       //通过jClass字段，每个Class结构体实例都与一个类对象关联。
     public  String sourceFile        ;							//最后实现Class结构体的SourceFile()方法和Method结构体的 GetLineNumber()
@@ -106,6 +106,7 @@ public class JClass {
         }
         return "Unknown" ;
     }
+
     public boolean IsPublic() {
         return 0 != (this.accessFlags.Value() & Constants.ACC_PUBLIC);
     }

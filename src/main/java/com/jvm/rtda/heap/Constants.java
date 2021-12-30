@@ -3,7 +3,7 @@ package com.jvm.rtda.heap;
 
 public class Constants {
     // 声明为public ,可以从包外访问
-     public static final  int  ACC_PUBLIC       = 0x0001; // class field method
+     public static final  int  ACC_PUBLIC       = 0x0001; // class field method        0x0001
       public static final  int ACC_PRIVATE      = 0x0002; //       field method
       public static final  int ACC_PROTECTED    = 0x0004; //       field method
       public static final  int ACC_STATIC       = 0x0008; //       field method
