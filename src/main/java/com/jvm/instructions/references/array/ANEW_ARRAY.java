@@ -12,7 +12,6 @@ import com.jvm.utils.ExceptionUtils;
 // Create new array of reference
 public class ANEW_ARRAY extends Index16Instruction {
 
-    public  static int i = 0 ;
     @Override
     public void Execute(Frame frame) {
         JConstantPool cp = frame.Method().classMember.Class().ConstantPool();
@@ -26,10 +25,6 @@ public class ANEW_ARRAY extends Index16Instruction {
         int count = stack.PopInt();
         if (count < 0) {
             ExceptionUtils.throwException("java.lang.NegativeArraySizeException");
-        }
-        i ++;
-        if(i == 3 ){
-            System.out.println("xxxxxxxxxxxxxxx");
         }
 
         JClass arrClass = componentClass.ArrayClass();

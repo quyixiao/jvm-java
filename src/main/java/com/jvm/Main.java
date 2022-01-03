@@ -21,7 +21,7 @@ public class Main {
         Cmd cmd = new Cmd();
         cmd.setCpOption("/Users/quyixiao/gitlab/jvm-java/target/test-classes/com/test/ch06");
         cmd.setXjreOption("/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre");
-        cmd.setJclass("CircleXXX");
+        cmd.setJclass("MyObject");
         new JVM(cmd).start();
     }
 

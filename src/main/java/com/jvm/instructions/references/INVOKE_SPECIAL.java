@@ -41,7 +41,7 @@ public class INVOKE_SPECIAL extends Index16Instruction {
         //如果调用的中超类中的函数，但不是构造函数，且当前类的ACC_SUPER标志被设置，需要一个额外的过程查找最终要调用的
         //方法;否则前面从方法符号引用中解析出来的方法就是要调用的方法。
         if (currentClass.IsSuper() &&
-                resolvedClass.IsSuperClassOf(currentClass) &&
+                resolvedClass.IsSuperClassOf(currentClass) &&       //resolvedClass是否是currentClass的子类
                 !resolvedMethod.classMember.Name().equals("<init>")) {
 
             methodToBeInvoked = MethodLookup.LookupMethodInClass(currentClass.SuperClass(),

@@ -14,6 +14,10 @@ public class DirEntry implements Entry {
 
     @Override
     public byte[] readClass(String className) {
+        if(className.startsWith("com/test")){
+            String a[] = className.split("/");
+            className = a[a.length-1];
+        }
         String classPath = Filepath.join(absDir, StringUtils.getClassName(className));
         return ClassReaderUtils.readClass(classPath);
     }
@@ -22,5 +26,6 @@ public class DirEntry implements Entry {
     public String toString() {
         return absDir;
     }
+
 
 }

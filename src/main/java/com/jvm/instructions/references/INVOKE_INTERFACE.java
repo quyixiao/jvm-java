@@ -19,14 +19,17 @@ public class INVOKE_INTERFACE implements Instruction {
 
     public int index;
 
+    public int index1;
+    public int index2;
+
 
     //注意，和其他三条方法调用指令略有不同，在字节码中， invokeinterface指令的操作码后面跟着4字节而非2字节。
     public void FetchOperands(BytecodeReader reader) {
         this.index = reader.ReadUint16().Value();    //前两字节 的含义和其他指令相同，是个uint16运行时常量池索引。
         // count 第3字节的 值是给方法传递参数需要的slot数，其含义和给Method结构体定义 的argSlotCount字段相同。
         //正如我们所知，这个数是可以根据方法描 述符计算出来的，它的存在仅仅是因为历史原因。
-        reader.ReadUint8();
-        reader.ReadUint8(); // must be 0 第4字节是留给 Oracle的某些Java虚拟机实现用的，它的值必须是0。该字节的存在 是为了保证Java虚拟机可以向后兼容。
+        this.index1 = reader.ReadUint8().Value();
+        this.index2 = reader.ReadUint8().Value(); // must be 0 第4字节是留给 Oracle的某些Java虚拟机实现用的，它的值必须是0。该字节的存在 是为了保证Java虚拟机可以向后兼容。
     }
 
 
@@ -62,5 +65,12 @@ public class INVOKE_INTERFACE implements Instruction {
         MethodInvokeLogic.InvokeMethod(frame, methodToBeInvoked);
     }
 
-
+    @Override
+    public String toString() {
+        return "INVOKE_INTERFACE{" +
+                "index=" + index +
+                ", index1=" + index1 +
+                ", index2=" + index2 +
+                '}';
+    }
 }

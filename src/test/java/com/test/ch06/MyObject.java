@@ -6,7 +6,6 @@ public class MyObject {
     public int instanceVar;
 
     public static void main(String[] args) {
-
         int x = 32768; // ldc
         MyObject myObj = new MyObject(); // new
         MyObject.staticVar = x; // putstatic
@@ -16,7 +15,7 @@ public class MyObject {
         Object obj = myObj;
         if (obj instanceof MyObject) { // instanceof
             myObj = (MyObject) obj; // checkcast
-            System.out.println(myObj.instanceVar);
+            int i = 1;
         }
     }
 

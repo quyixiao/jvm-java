@@ -68,4 +68,11 @@ public class NEW_ARRAY implements Instruction {
         return null;
     }
 
+
+    @Override
+    public String toString() {
+        return "NEW_ARRAY{" +
+                "atype=" + atype.Value() +
+                '}';
+    }
 }

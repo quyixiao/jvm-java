@@ -6,6 +6,7 @@ import com.jvm.rtda.Frame;
 import com.jvm.rtda.JThread;
 import com.jvm.rtda.heap.*;
 import lombok.extern.slf4j.Slf4j;
+import sun.misc.VM;
 
 @Slf4j
 public class JVM {
